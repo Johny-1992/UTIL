@@ -1,3 +1,4 @@
-extern "C" int compute_merit(int usage, int engagement) {
-    return usage + engagement;
+#include <iostream>
+extern "C" int score(int activity) {
+    return activity * 2;
 }
