@@ -1,0 +1,125 @@
+import { Router, Request, Response } from 'express';
+import { handleUsageEvent, handlePartnerProfile } from './services/event_listener';
+import { buildQrContextFromRequest, encodeQrContext, decodeQrContext } from './services/qr_service';
+import { recordRewardOnChain } from './services/sync_chain';
+import { UsageEvent, PartnerProfile } from './fraud_detection';
+
+const router = Router();
+
+// Endpoint principal sur /api/ai
+router.get('/', (_req: Request, res: Response) => {
+  res.json({ status: 'AI endpoint OK', route: '/api/ai' });
+});
+
+// Endpoint supplémentaire sur /api/ai/status
+router.get('/status', (_req: Request, res: Response) => {
+  res.json({ status: 'AI endpoint OK', route: '/api/ai/status' });
+});
+
+// POST /api/ai/analyze/usage
+router.post('/analyze/usage', async (req: Request, res: Response) => {
+  const { userId, partnerId, amount, country, channel, device, timestamp } = req.body || {};
+  if (typeof userId !== 'string' || typeof partnerId !== 'string' || typeof amount !== 'number') {
+    return res.status(400).json({
+      error: 'Paramètres invalides',
+      details: 'userId, partnerId (string) et amount (number) sont requis.',
+    });
+  }
+
+  const event: UsageEvent = {
+    userId,
+    partnerId,
+    amount,
+    timestamp: typeof timestamp === 'string' ? timestamp : new Date().toISOString(),
+    country: typeof country === 'string' ? country : undefined,
+    channel: typeof channel === 'string' ? channel : undefined,
+    device: typeof device === 'string' ? device : undefined,
+  };
+
+  try {
+    const analysis = await handleUsageEvent(event);
+    return res.json({ event, analysis });
+  } catch (err) {
+    console.error('Erreur dans /api/ai/analyze/usage :', err);
+    return res.status(500).json({ error: 'Erreur interne lors de l’analyse d’usage' });
+  }
+});
+
+// POST /api/ai/analyze/partner
+router.post('/analyze/partner', async (req: Request, res: Response) => {
+  const { partnerId, kycCompleted, country, category, complaints } = req.body || {};
+  if (typeof partnerId !== 'string' || typeof kycCompleted !== 'boolean') {
+    return res.status(400).json({
+      error: 'Paramètres invalides',
+      details: 'partnerId (string) et kycCompleted (boolean) sont requis.',
+    });
+  }
+
+  const profile: PartnerProfile = {
+    partnerId,
+    kycCompleted,
+    country: typeof country === 'string' ? country : undefined,
+    category: typeof category === 'string' ? category : undefined,
+    complaints: typeof complaints === 'number' ? complaints : undefined,
+  };
+
+  try {
+    const analysis = await handlePartnerProfile(profile);
+    return res.json({ profile, analysis });
+  } catch (err) {
+    console.error('Erreur dans /api/ai/analyze/partner :', err);
+    return res.status(500).json({ error: 'Erreur interne lors de l’analyse partenaire' });
+  }
+});
+
+// POST /api/ai/qr/encode
+router.post('/qr/encode', (req: Request, res: Response) => {
+  try {
+    const ctx = buildQrContextFromRequest(req);
+    const payload = encodeQrContext(ctx);
+    return res.json({ payload, context: ctx });
+  } catch (err: any) {
+    console.error('Erreur dans /api/ai/qr/encode :', err);
+    return res.status(400).json({ error: 'Erreur lors de la création du QR', details: err.message || String(err) });
+  }
+});
+
+// POST /api/ai/qr/decode
+router.post('/qr/decode', (req: Request, res: Response) => {
+  const { payload } = req.body || {};
+  if (typeof payload !== 'string') {
+    return res.status(400).json({ error: 'Paramètres invalides', details: 'payload (string) requis.' });
+  }
+  try {
+    const context = decodeQrContext(payload);
+    return res.json({ context });
+  } catch (err: any) {
+    console.error('Erreur dans /api/ai/qr/decode :', err);
+    return res.status(400).json({ error: 'QR invalide', details: err.message || String(err) });
+  }
+});
+
+// POST /api/ai/sync/reward
+router.post('/sync/reward', async (req: Request, res: Response) => {
+  const { userId, partnerId, utilAmount, ...txMetadata } = req.body || {};
+  if (typeof userId !== 'string' || typeof partnerId !== 'string' || typeof utilAmount !== 'number') {
+    return res.status(400).json({
+      error: 'Paramètres invalides',
+      details: 'userId, partnerId (string) et utilAmount (number) sont requis.',
+    });
+  }
+  try {
+    const result = await recordRewardOnChain({
+      userId,
+      partnerId,
+      utilAmount,
+      txMetadata,
+    });
+    return res.json(result);
+  } catch (err) {
+    console.error('Erreur dans /api/ai/sync/reward :', err);
+    return res.status(500).json({ error: 'Erreur interne lors de la synchronisation on-chain' });
+  }
+});
+
+export default router;

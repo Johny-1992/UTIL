@@ -1,0 +1,82 @@
+import { Router, Request, Response } from 'express';
+import {
+  analyzeUsage,
+  analyzePartner,
+  evaluatePartnerOnboarding,
+  PartnerOnboardingProposal,
+} from './fraud_detection';
+
+const router = Router();
+
+// GET /api/ai
+router.get('/', (_req: Request, res: Response) => {
+  res.json({ status: 'AI endpoint OK', route: '/api/ai' });
+});
+
+// GET /api/ai/status
+router.get('/status', (_req: Request, res: Response) => {
+  res.json({ status: 'AI endpoint OK', route: '/api/ai/status' });
+});
+
+// POST /api/ai/analyze/usage
+router.post('/analyze/usage', (req: Request, res: Response) => {
+  const event = req.body;
+  if (!event.userId || !event.partnerId || typeof event.amount !== 'number') {
+    return res.status(400).json({
+      error: 'Paramètres invalides pour analyse usage',
+      details: 'userId, partnerId et amount sont requis',
+    });
+  }
+  // Ajouter un timestamp si absent
+  if (!event.timestamp) {
+    event.timestamp = new Date().toISOString();
+  }
+  const analysis = analyzeUsage(event);
+  return res.json({ event, analysis });
+});
+
+// POST /api/ai/analyze/partner
+router.post('/analyze/partner', (req: Request, res: Response) => {
+  const profile = req.body;
+  if (!profile.partnerId) {
+    return res.status(400).json({
+      error: 'Paramètres invalides pour analyse partenaire',
+      details: 'partnerId est requis',
+    });
+  }
+  const analysis = analyzePartner(profile);
+  return res.json({ profile, analysis });
+});
+
+// POST /api/ai/onboard/partner
+router.post('/onboard/partner', (req: Request, res: Response) => {
+  const proposal = req.body as PartnerOnboardingProposal;
+
+  if (
+    !proposal.name ||
+    !proposal.sector ||
+    typeof proposal.activeUsers !== 'number' ||
+    !proposal.country ||
+    typeof proposal.rewardRate !== 'number' ||
+    !proposal.currency ||
+    typeof proposal.usdRate !== 'number'
+  ) {
+    return res.status(400).json({
+      error: 'Paramètres invalides pour onboarding partenaire',
+      details:
+        'name, sector, activeUsers, country, rewardRate, currency et usdRate sont requis',
+    });
+  }
+
+  try {
+    const decision = evaluatePartnerOnboarding(proposal);
+    return res.json(decision);
+  } catch (err) {
+    console.error('Erreur dans evaluatePartnerOnboarding:', err);
+    return res.status(500).json({
+      error: 'Erreur interne lors de l’évaluation AI d’onboarding partenaire',
+    });
+  }
+});
+
+export default router;

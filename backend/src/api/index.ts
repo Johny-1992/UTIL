@@ -1,9 +1,16 @@
-import express from "express";
+import { Router } from "express";
+import partner from "./partner_validation";
+import ai from "./ai";
+import fraudDetection from "./fraud_detection";
 
-const app = express();
+const router = Router();
 
-app.get("/health", (_req, res) => {
-  res.json({ status: "ok" });
+router.get("/index", (_, res) => {
+  res.json({ message: "API fonctionnelle !" });
 });
 
-export default app;
+router.use("/partner", partner);
+router.use("/ai", ai);
+router.use("/fraud", fraudDetection);
+
+export default router;
