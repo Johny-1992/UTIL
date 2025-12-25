@@ -5,6 +5,7 @@ import { verifyApiKey } from './middleware/authMiddleware';
 import apiRouter from './api/index';
 import qrRouter from './api/qr';
 import rewardsRouter from './api/rewards/rewards';
+import logger from './utils/logger'; // Ajoutez cette ligne
 
 dotenv.config();
 
@@ -17,6 +18,12 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'x-api-key']
 }));
+
+// Middleware pour logger les requêtes
+app.use((req, res, next) => {
+  logger.info(`${req.method} ${req.url}`);
+  next();
+});
 
 app.use(express.json());
 
@@ -35,6 +42,7 @@ app.use('/api/rewards', verifyApiKey, rewardsRouter);
 
 // Démarrer le serveur
 app.listen(PORT, '0.0.0.0', () => {
+  logger.info(`Server running on port ${PORT}`);
   console.log(`Server running on port ${PORT}`);
 });
 
