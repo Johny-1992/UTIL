@@ -1,39 +1,14 @@
-import { Router } from 'express';
-import { calculateRewards, transferUtil, convertToUSDT } from '../../services/rewardsService';
+import {
+  calculateRewards,
+  transferUtil,
+  convertToUSDT
+} from "../../services/rewardsService";
 
-const router = Router();
+export const rewardController = async (req: any) =>
+  calculateRewards(req.partnerId, req.userId, req.amountSpent);
 
-// Calcul des récompenses
-router.post('/calculate', async (req, res) => {
-  try {
-    const { partnerId, userId, amountSpent, currency, utilPrice } = req.body;
-    const result = await calculateRewards(partnerId, userId, amountSpent, currency, utilPrice);
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+export const transferController = async (req: any) =>
+  transferUtil(req.fromUserId, req.toUserId, req.amount);
 
-// Transfert d'UTIL
-router.post('/transfer', async (req, res) => {
-  try {
-    const { fromUserId, toUserId, amount } = req.body;
-    const result = await transferUtil(fromUserId, toUserId, amount);
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Conversion UTIL → USDT
-router.post('/convert', async (req, res) => {
-  try {
-    const { userId, amount } = req.body;
-    const result = await convertToUSDT(userId, amount);
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-export default router;
+export const convertController = async (req: any) =>
+  convertToUSDT(req.userId, req.amount);

@@ -1,50 +1,39 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import { verifyApiKey } from './middleware/authMiddleware';
-import apiRouter from './api/index';
-import qrRouter from './api/qr';
-import rewardsRouter from './api/rewards/rewards';
-import logger from './utils/logger'; // Ajoutez cette ligne
-
-dotenv.config();
+import 'dotenv/config';
+import express, { Request, Response } from 'express';
+import partnerValidation from './partner_validation';
+import aiRouter from './ai';
+import apiRouter from './api';
 
 const app = express();
-const PORT: number = Number(process.env.PORT) || 10000;
 
-// Configuration CORS
-app.use(cors({
-  origin: ['https://votre-frontend-vercel.vercel.app'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'x-api-key']
-}));
+// PORT configuré via .env ou 3000 par défaut
+const PORT: number = Number(process.env.PORT) || 3000;
 
-// Middleware pour logger les requêtes
-app.use((req, res, next) => {
-  logger.info(`${req.method} ${req.url}`);
-  next();
-});
+// Faire confiance au proxy (Nginx) pour les IP / X-Forwarded-For
+app.set('trust proxy', true);
 
+// Middleware global JSON + logger
 app.use(express.json());
 
-// Route pour la racine
-app.get('/', (req, res) => {
-  res.send('Bienvenue sur OmniUtil ! Le backend est opérationnel.');
+// Route de santé publique (sans auth, sans rate limit)
+app.get('/health', (_req: Request, res: Response) => {
+  return res.status(200).json({ status: 'ok' });
 });
 
-// Routes publiques
-app.get('/health', (req, res) => res.status(200).json({ status: 'ok' }));
+// À partir d'ici : rate limit + clé API
 
-// Routes protégées par la clé API
-app.use('/api', verifyApiKey, apiRouter);
-app.use('/api/qr', verifyApiKey, qrRouter);
-app.use('/api/rewards', verifyApiKey, rewardsRouter);
+// Ancienne logique /api/partner (valideur)
+app.use('/api/partner', partnerValidation);
 
-// Démarrer le serveur
+// AI coordonnateur
+app.use('/api/ai', aiRouter);
+
+// Nouvelle API métier OMNIUTIL (onboard, reward, util)
+app.use('/api', apiRouter);
+
+// Démarrage du serveur
 app.listen(PORT, '0.0.0.0', () => {
-  logger.info(`Server running on port ${PORT}`);
   console.log(`Server running on port ${PORT}`);
 });
 
 export default app;
-

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { loadLedger, saveLedger } from '../src/onchain/ledger';
+import { loadLedger, saveLedger } from '../onchain/ledger';
 
 const USER_WALLET_PATH = path.join(process.cwd(), '..', 'USER_WALLET.json');
 

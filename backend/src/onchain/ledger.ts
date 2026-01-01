@@ -1,53 +1,36 @@
-import fs from 'fs';
-import path from 'path';
+export interface UtilLedger {
+  balances: Record<string, number>;
+}
 
-export const LEDGER_PATH = path.join(process.cwd(), 'onchain_demo_ledger.json');
+export interface Partner {
+  updatedAt: string;
+  // ajoute ici les champs nécessaires au partenaire
+  [key: string]: any;
+}
 
-export interface OnchainDemoLedger {
+export interface LedgerMeta {
+  // champs meta utilisés dans sync_chain.ts
+  [key: string]: any;
+}
+
+export interface Ledger {
+  util: UtilLedger;
+  partners: Record<string, Partner>;
+  meta: LedgerMeta;
+}
+
+let ledger: Ledger = {
   util: {
-    balances: Record<string, number>;
-  };
-  partners: Record<string, any>;
-  meta: {
-    mode: string;
-    createdAt: string;
-    updatedAt: string;
-  };
-}
+    balances: {}
+  },
+  partners: {},
+  meta: {}
+};
 
-function createDefaultLedger(): OnchainDemoLedger {
-  const now = new Date().toISOString();
-  const ledger: OnchainDemoLedger = {
-    util: { balances: {} },
-    partners: {},
-    meta: {
-      mode: 'demo',
-      createdAt: now,
-      updatedAt: now,
-    },
-  };
-  fs.writeFileSync(LEDGER_PATH, JSON.stringify(ledger, null, 2), 'utf-8');
+export const loadLedger = (): Ledger => {
   return ledger;
-}
+};
 
-export function loadLedger(): OnchainDemoLedger {
-  try {
-    if (!fs.existsSync(LEDGER_PATH)) {
-      return createDefaultLedger();
-    }
-    const content = fs.readFileSync(LEDGER_PATH, 'utf-8');
-    const parsed = JSON.parse(content) as OnchainDemoLedger;
-    if (!parsed.util || !parsed.util.balances || !parsed.partners || !parsed.meta) {
-      return createDefaultLedger();
-    }
-    return parsed;
-  } catch (err) {
-    console.error('Erreur lecture ledger DEMO, recréation :', err);
-    return createDefaultLedger();
-  }
-}
-
-export function saveLedger(ledger: OnchainDemoLedger): void {
-  ledger.meta.updatedAt = new Date().toISOString();
-  fs.writeFileSync(LEDGER_PATH, JSON.stringify(ledger, null, 2), 'utf-8');
-}
+export const saveLedger = (newLedger: Ledger): void => {
+  ledger = newLedger;
+};
