@@ -19,6 +19,7 @@ contract OmniUtil is ERC20, Ownable {
         uint256 amount;
         uint256 timestamp;
     }
+
     ServiceExchange[] public serviceExchanges;
     uint256 public usdtExchangeRate = 1;
 
@@ -31,13 +32,21 @@ contract OmniUtil is ERC20, Ownable {
     event MiettesDistributed(address indexed influencer, uint256 amount);
     event FraudDetected(address indexed user, string reason);
 
-    constructor(address _creator, address _treasury) ERC20("OmniUtil", "UTIL") {
+    constructor(address _creator, address _treasury)
+        ERC20("OmniUtil", "UTIL")
+        Ownable(msg.sender)
+    {
         CREATOR = _creator;
         TREASURY = _treasury;
-        _mint(msg.sender, 1000000 * (10 ** decimals()));
+        _mint(msg.sender, 1_000_000 * 10 ** decimals());
     }
 
-    function addPartner(address partner, uint256 _rewardRate, address ecosystem, uint256 _loyaltyFactor) external onlyOwner {
+    function addPartner(
+        address partner,
+        uint256 _rewardRate,
+        address ecosystem,
+        uint256 _loyaltyFactor
+    ) external onlyOwner {
         require(!isPartner[partner], "Partenaire deja existant");
         isPartner[partner] = true;
         partnerRewardRates[partner] = _rewardRate;
@@ -51,8 +60,6 @@ contract OmniUtil is ERC20, Ownable {
         require(amountSpentUSD > 0, "Montant doit etre > 0");
 
         uint256 rewardRate = partnerRewardRates[partner];
-        uint256 loyalty = loyaltyFactor[partner];
-
         uint256 reward = (amountSpentUSD * rewardRate) / 100;
 
         uint256 copyrightFee = (reward * 1) / 100;
@@ -73,12 +80,14 @@ contract OmniUtil is ERC20, Ownable {
         require(isPartner[msg.sender], "Seul un partenaire peut echanger des services");
 
         _burn(msg.sender, amount);
+
         serviceExchanges.push(ServiceExchange({
             user: msg.sender,
             serviceDescription: serviceDescription,
             amount: amount,
             timestamp: block.timestamp
         }));
+
         emit ServiceExchanged(msg.sender, serviceDescription, amount);
     }
 
@@ -90,14 +99,22 @@ contract OmniUtil is ERC20, Ownable {
 
     function transferInEcosystem(address to, uint256 amount) external {
         require(balanceOf(msg.sender) >= amount, "Solde insuffisant");
-        require(userEcosystem[msg.sender] == userEcosystem[to], "Transfert uniquement dans le meme ecosysteme");
+        require(
+            userEcosystem[msg.sender] == userEcosystem[to],
+            "Transfert uniquement dans le meme ecosysteme"
+        );
         _transfer(msg.sender, to, amount);
         emit TransferInEcosystem(msg.sender, to, amount);
     }
 
-    function distributeMiettes(address[] memory influencers, uint256 totalNetworkFee) external onlyOwner {
+    function distributeMiettes(address[] memory influencers, uint256 totalNetworkFee)
+        external
+        onlyOwner
+    {
         require(influencers.length > 0, "Aucun influenceur");
-        uint256 miettesPerInfluencer = (totalNetworkFee * 10) / (100 * influencers.length);
+        uint256 miettesPerInfluencer =
+            (totalNetworkFee * 10) / (100 * influencers.length);
+
         for (uint256 i = 0; i < influencers.length; i++) {
             _mint(influencers[i], miettesPerInfluencer);
             emit MiettesDistributed(influencers[i], miettesPerInfluencer);
