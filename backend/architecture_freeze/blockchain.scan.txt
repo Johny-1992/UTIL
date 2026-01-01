@@ -1,0 +1,18 @@
+src/utils/contracts.ts:import { Contract, Provider } from "ethers";
+src/utils/OmniUtil.json:  "contractName": "OmniUtil",
+src/utils/OmniUtil.json:  "sourceName": "contracts/OmniUtil.sol",
+src/utils/omniutil_abi.json:  "contractName": "OmniUtil",
+src/utils/omniutil_abi.json:  "sourceName": "contracts/OmniUtil.sol",
+src/utils/provider.ts:import { JsonRpcProvider, Wallet } from "ethers";
+src/utils/contracts.js:import { ethers } from "ethers";
+src/utils/omniUtilContract.ts:import { Contract } from "ethers";
+src/utils/omniUtilContract.ts:export const getOmniUtilContract = (contract: Contract): any =>
+src/utils/omniUtilContract.ts:  contract as any;
+src/tests/testOmniUtilFull.ts:import { ethers } from "ethers";
+src/tests/testOmniUtilFull.ts:import { getOmniUtilContract } from "../utils/contracts";
+src/tests/testOmniUtilFull.ts:  const provider = new ethers.JsonRpcProvider(RPC_URL);
+src/tests/testOmniUtilFull.ts:  const wallet = new ethers.Wallet(PRIVATE_KEY, provider);
+src/index.js:import { ethers } from "ethers";
+src/index.js:import { OMNIUTIL_CONTRACT_ADDRESS, OMNIUTIL_ABI } from './utils/contracts.js';
+src/index.js:const provider = new ethers.JsonRpcProvider(process.env.BSC_RPC_URL || "https://data-seed-prebsc-1-s1.binance.org/");
+src/index.js:export const omniUtilContract = new ethers.Contract(OMNIUTIL_CONTRACT_ADDRESS, OMNIUTIL_ABI, provider);

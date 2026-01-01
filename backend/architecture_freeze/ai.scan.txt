@@ -1,0 +1,114 @@
+src/index.ts:import aiRouter from './ai';
+src/index.ts:// Faire confiance au proxy (Nginx) pour les IP / X-Forwarded-For
+src/index.ts:// AI coordonnateur
+src/index.ts:app.use('/api/ai', aiRouter);
+src/api/index.ts:import ai from "./ai";
+src/api/index.ts:router.use("/ai", ai);
+src/api/partner_validation.ts:import { evaluatePartnershipRequest } from '../services/aiCoordinatorService';
+src/api/partner_validation.ts:    const result = await evaluatePartnershipRequest(ecosystemId);
+src/api/partner_validation.ts:    res.status(500).json({ error: "Failed to process partnership request" });
+src/api/ai.ts:  res.json({ status: 'AI endpoint OK' });
+src/api/api/index.ts:      error: 'Erreur interne lors de l’onboarding partenaire',
+src/api/api/index.ts:      details: 'usage et rate doivent être des nombres',
+src/api/api/index.ts:      details: 'user et service doivent être des chaînes, amount un nombre',
+src/api/api/index.js:            error: 'Erreur interne lors de l’onboarding partenaire',
+src/api/api/index.js:            details: 'usage et rate doivent être des nombres',
+src/api/api/index.js:            details: 'user et service doivent être des chaînes, amount un nombre',
+src/api/qr.ts:    const qrCode = await generateOmniutilQR();
+src/api/qr.ts:      return res.status(500).json({ error: "Failed to generate QR code" });
+src/api/qr.ts:    res.status(500).json({ error: "Failed to generate QR code" });
+src/constitution/constitution.ts:    "Human + AI symbiosis"
+src/full_ultimate_omniutil_modules.sh:        echo "❌ $endpoint FAILED (HTTP $HTTP_STATUS)"
+src/full_ultimate_omniutil_fix.sh:# --- Step 3: Create main entry index.ts ---
+src/full_ultimate_omniutil_fix.sh:        echo "❌ $endpoint FAILED (HTTP $HTTP_STATUS)"
+src/full_ultimate_omniutil_phase2.sh:    "Human + AI symbiosis"
+src/qr/omniutil_qr.ts:    return await QRCode.toDataURL(JSON.stringify(qrData));
+src/onboarding/partner_auto.ts:    const qr = await generateOmniutilQR(); 
+src/onboarding/partner_auto.ts:        message: `Partenaire ${partner_id} onboardé avec succès!`,
+src/ai/ai_coordinator.ts:// Endpoint test AI Coordinator
+src/ai/ai_coordinator.ts:router.get('/ai/status', (req, res) => {
+src/ai/ai_coordinator.ts:    res.json({ status: 'AI Coordinator operational', timestamp: new Date() });
+src/ai/ai_coordinator.ts:// TODO: Ajouter la logique AI centrale ici
+src/middleware/apiKeyAuth.ts:  // 2) Optionnel : autoriser aussi ?api_key=... pour faciliter certains tests
+src/middleware/apiKeyAuth.ts:      details: `Fournis la clé via le header '${API_KEY_HEADER}' ou le paramètre de requête 'api_key'.`,
+src/middleware/apiKeyAuth.ts:  // OK, on laisse passer
+src/middleware/rateLimit.ts:    res.setHeader('X-RateLimit-Remaining', '0');
+src/middleware/rateLimit.ts:      details: `Limite de ${maxRequests} requêtes par ${windowMs / 1000}s dépassée.`,
+src/middleware/rateLimit.ts:  res.setHeader('X-RateLimit-Remaining', String(Math.max(0, maxRequests - info.count)));
+src/onchain/ledger.ts:  // ajoute ici les champs nécessaires au partenaire
+src/onchain/ledger.ts:  // champs meta utilisés dans sync_chain.ts
+src/index.tsoii:import aiRouter from "./api/ai";
+src/index.tsoii:app.use("/api/ai", apiAuth, aiRouter);
+src/services/sync_chain.ts:import { loadLedger, saveLedger } from '../onchain/ledger';
+src/services/sync_chain.ts: * Enregistre un partenaire accepté par l'AI dans le ledger DEMO,
+src/services/aiCoordinatorService.ts:  const ecosystemInfo = await getEcosystemInfo(ecosystemId);
+src/services/aiCoordinatorService.ts:  // Score de confiance supplémentaire
+src/services/aiCoordinatorService.ts:    "airtel": { name: "Airtel", subscribers: 5000000, trustScore: 45 },
+src/services/qr_service.ts:  campaignId?: string;
+src/services/qr_service.ts:// Alias pour compatibilité avec ai.ts
+src/services/qr_service.js:// Alias pour compatibilité avec ai.ts
+src/services/qr_service.ts.step11fix.bak:  campaignId?: string;
+src/services/qr_service.ts.step11fix.bak:  const { partnerId, userId, campaignId, ...rest } = req.body || {};
+src/services/qr_service.ts.step11fix.bak:  if (typeof campaignId === 'string') ctx.campaignId = campaignId;
+src/services/sync_chain.js:const ledger_1 = require("../src/onchain/ledger");
+src/services/sync_chain.js: * Enregistre un partenaire accepté par l'AI dans le ledger DEMO,
+src/services/sync_chain.ts.step11.bak:export interface OnChainReward {
+src/services/sync_chain.ts.step11.bak:export interface OnChainResult {
+src/services/sync_chain.ts.step11.bak:export async function recordRewardOnChain(payload: OnChainReward): Promise<OnChainResult> {
+src/services/sync_chain.ts.step11.bak:  const network = process.env.CHAIN_NETWORK || 'demo';
+src/services/sync_chain.ts.step11.bak:  console.log(JSON.stringify({ type: 'onchain_reward', network, payload, txHash }));
+src/utils/OmniUtil.json:      "name": "RewardClaimed",
+src/utils/OmniUtil.json:      "name": "claimReward",
+src/utils/omniutil_abi.json:      "name": "RewardClaimed",
+src/utils/omniutil_abi.json:      "name": "claimReward",
+src/utils/provider.ts:import { BLOCKCHAIN_CONFIG } from "../config/blockchain";
+src/utils/provider.ts:  return new JsonRpcProvider(BLOCKCHAIN_CONFIG.rpcUrl);
+src/utils/provider.ts:  if (!BLOCKCHAIN_CONFIG.privateKey) {
+src/utils/provider.ts:  return new Wallet(BLOCKCHAIN_CONFIG.privateKey, getProvider());
+src/utils/antiFraudGuard.ts:const DAILY_LIMIT = 10000;
+src/utils/antiFraudGuard.ts:const userDaily: Record<string, number> = {};
+src/utils/antiFraudGuard.ts:  userDaily[userId] = (userDaily[userId] || 0) + amount;
+src/utils/antiFraudGuard.ts:  if (userDaily[userId] > DAILY_LIMIT) {
+src/utils/antiFraudGuard.ts:      reason: "DAILY_LIMIT_EXCEEDED",
+src/tests/testOmniUtilFull.ts:import { loadLedger, saveLedger, Ledger } from "../onchain/ledger";
+src/tests/testOmniUtilFull.ts:async function main() {
+src/tests/testOmniUtilFull.ts:  // 4️⃣ Ajouter utilisateur et partenaire fictifs
+src/tests/testOmniUtilFull.ts:  // 5️⃣ Test claimReward
+src/tests/testOmniUtilFull.ts:    const tx = await omniUtilContract.claimReward({ gasLimit: 300000 });
+src/tests/testOmniUtilFull.ts:    console.log("claimReward tx hash :", tx.hash);
+src/tests/testOmniUtilFull.ts:    await tx.wait();
+src/tests/testOmniUtilFull.ts:    console.log("claimReward confirmée !");
+src/tests/testOmniUtilFull.ts:    console.error("Erreur claimReward :", err);
+src/tests/testOmniUtilFull.ts:    const tx2 = await omniUtilContract.exchangeForService(userKey, 10, { gasLimit: 300000 });
+src/tests/testOmniUtilFull.ts:    await tx2.wait();
+src/tests/testOmniUtilFull.ts:    const tx3 = await omniUtilContract.exchangeForUSDT(10, { gasLimit: 300000 });
+src/tests/testOmniUtilFull.ts:    await tx3.wait();
+src/tests/testOmniUtilFull.ts:    const tx4 = await omniUtilContract.transferInEcosystem(userKey, 5, { gasLimit: 300000 });
+src/tests/testOmniUtilFull.ts:    await tx4.wait();
+src/tests/testOmniUtilFull.ts:main().catch(err => console.error(err));
+src/ai.ts:import { syncRewardDemo, registerPartnerDemo } from './services/sync_chain';
+src/ai.ts:// Endpoint principal sur /api/ai
+src/ai.ts:  res.json({ status: 'AI endpoint OK', route: '/api/ai' });
+src/ai.ts:// Endpoint santé AI
+src/ai.ts:  res.json({ status: 'AI endpoint OK', route: '/api/ai/status' });
+src/ai.ts:// Analyse d'un profil partenaire simple
+src/ai.ts:    return res.status(500).json({ error: 'Erreur interne analyse partenaire' });
+src/ai.ts:// Onboarding partenaire coordonné par AI
+src/ai.ts:      const onchainDemo = registerPartnerDemo(result.proposal, result.analysis);
+src/ai.ts:        onchainDemo,
+src/ai.ts:    return res.status(500).json({ error: 'Erreur interne onboarding partenaire' });
+src/ai.ts:// QR encode (contexte campagne/partenaire/utilisateur)
+src/ai.ts:      details: 'userId, partnerId doivent être des chaînes, utilAmount un nombre.',
+src/fraud_detection.ts:// 2) Analyse d'un profil partenaire simple
+src/fraud_detection.ts:  complaints?: number;
+src/fraud_detection.ts:  if (typeof profile.complaints === 'number') {
+src/fraud_detection.ts:    if (profile.complaints === 0) {
+src/fraud_detection.ts:      reasons.push('no_complaints');
+src/fraud_detection.ts:    } else if (profile.complaints > 10) {
+src/fraud_detection.ts:      reasons.push('many_complaints');
+src/fraud_detection.ts:// 3) Evaluation d'onboarding partenaire (Airtel / SmallBet / ScamCasino)
+src/fraud_detection.ts:  // Taille base utilisateurs
+src/fraud_detection.ts:    message = "Partenaire automatiquement accepté par l’AI coordonnateur.";
+src/fraud_detection.ts:    message = "Partenaire mis en attente pour examen humain (admin signataire).";
+src/fraud_detection.ts:    message = "Profil partenaire jugé trop risqué. Rejet automatique.";
+src/config/blockchain.ts:export const BLOCKCHAIN_CONFIG = {
