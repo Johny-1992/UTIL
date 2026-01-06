@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
-import { loadLedger, saveLedger, Ledger } from "../onchain/ledger";
-import { getOmniUtilContract } from "../utils/contracts";
+import { loadLedger, saveLedger, Ledger } from '../onchain/ledger.js';
+import { getOmniUtilContract } from '../utils/contracts.js';
 
 // ⚠️ Clé privée testnet et RPC
 const PRIVATE_KEY = process.env.TEST_WALLET_PRIVATE_KEY!;

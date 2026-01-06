@@ -1,4 +1,4 @@
-import { audit } from "./auditLogger";
+import { audit } from "./auditLogger.js";
 
 const DAILY_LIMIT = 10000;
 

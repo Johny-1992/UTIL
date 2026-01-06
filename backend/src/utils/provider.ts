@@ -1,5 +1,5 @@
 import { JsonRpcProvider, Wallet } from "ethers";
-import { BLOCKCHAIN_CONFIG } from "../config/blockchain";
+import { BLOCKCHAIN_CONFIG } from '../config/blockchain.js';
 
 export const getProvider = () => {
   return new JsonRpcProvider(BLOCKCHAIN_CONFIG.rpcUrl);

@@ -1,56 +1,54 @@
 import { JsonRpcProvider, Wallet } from 'ethers';
 
+/**
+ * UtilTokenService
+ * - Gestion blockchain (BSC / EVM)
+ * - Gestion droit d’auteur (wallet propriétaire)
+ * - Compatible mode démo / réel
+ */
 export class UtilTokenService {
-  provider: JsonRpcProvider;
-  wallet: Wallet;
+  private provider?: JsonRpcProvider;
+  private wallet?: Wallet;
+  private ownerWallet: string;
 
   constructor() {
-    if (!process.env.BSC_RPC_URL || !process.env.PRIVATE_KEY) {
-      throw new Error("⚠️ Veuillez définir BSC_RPC_URL et PRIVATE_KEY dans le fichier .env");
+    // 🔐 Wallet propriétaire (obligatoire)
+    if (!process.env.OWNER_WALLET) {
+      throw new Error("OWNER_WALLET manquant dans .env");
     }
+    this.ownerWallet = process.env.OWNER_WALLET;
 
-    this.provider = new JsonRpcProvider(process.env.BSC_RPC_URL);
-    this.wallet = new Wallet(process.env.PRIVATE_KEY, this.provider);
+    // 🌐 Blockchain optionnelle (mode démo possible)
+    if (process.env.BSC_RPC_URL && process.env.PRIVATE_KEY) {
+      this.provider = new JsonRpcProvider(process.env.BSC_RPC_URL);
+      this.wallet = new Wallet(process.env.PRIVATE_KEY, this.provider);
+    } else {
+      console.warn("⚠️ Mode DEMO actif : BSC_RPC_URL ou PRIVATE_KEY manquant");
+    }
   }
 
+  /** 🔐 Wallet du propriétaire (droit d’auteur éternel – 1%) */
+  getOwnerWalletAddress(): string {
+    return this.ownerWallet;
+  }
+
+  /** 🧪 Simulation de reward (mode démo ou réel) */
   async simulateReward() {
-    console.log('Wallet address:', this.wallet.address);
-    return { success: true };
-  }
-}
-export class UtilTokenService {
-
-  private ownerWallet: string;
-
-  constructor() {
-    if (!process.env.OWNER_WALLET) {
-      throw new Error("OWNER_WALLET manquant dans .env");
+    if (!this.wallet) {
+      return {
+        success: true,
+        mode: "demo",
+        ownerWallet: this.ownerWallet,
+      };
     }
-    this.ownerWallet = process.env.OWNER_WALLET;
+
+    console.log("Wallet blockchain actif :", this.wallet.address);
+
+    return {
+      success: true,
+      mode: "onchain",
+      wallet: this.wallet.address,
+      ownerWallet: this.ownerWallet,
+    };
   }
-
-
-
-  /** 🔐 Wallet du propriétaire (droit d’auteur éternel) */
-  getWalletAddress(): string {
-    return this.ownerWallet;
- }
-
-}
-export class UtilTokenService {
-
-  private ownerWallet: string;
-
-  constructor() {
-    if (!process.env.OWNER_WALLET) {
-      throw new Error("OWNER_WALLET manquant dans .env");
-    }
-    this.ownerWallet = process.env.OWNER_WALLET;
-  }
-
-  /** 🔐 Wallet du propriétaire (droit d’auteur éternel) */
-  getWalletAddress(): string {
-    return this.ownerWallet;
-  }
-
 }

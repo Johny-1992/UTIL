@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { evaluatePartnershipRequest } from '../services/aiCoordinatorService';
+import { evaluatePartnershipRequest } from '../services/aiCoordinatorService.js';
 
 const router = Router();
 

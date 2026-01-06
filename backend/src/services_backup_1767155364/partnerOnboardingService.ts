@@ -1,4 +1,4 @@
-import { PartnerRequest, partnerRequests } from "../models/partnerRequestModel";
+import { PartnerRequest, partnerRequests } from '../models/partnerRequestModel.js';
 
 export const createPartnerRequest = (request: Omit<PartnerRequest, 'id'|'status'|'createdAt'|'updatedAt'>) => {
   const id = 'p_' + Date.now();

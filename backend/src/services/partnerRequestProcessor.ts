@@ -1,5 +1,5 @@
-import { audit, AuditEvent } from "../utils/auditLogger";
-import { PartnerRequest, partnerRequests } from "../models/partnerRequestModel";
+import { audit, AuditEvent } from '../utils/auditLogger.js';
+import { PartnerRequest, partnerRequests } from '../models/partnerRequestModel.js';
 
 type PartnerDecision = "PENDING_AI" | "AUTO_ACCEPTED" | "AUTO_REJECTED" | "WAITING_SIGNER" | "APPROVED";
 

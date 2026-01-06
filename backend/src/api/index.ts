@@ -1,7 +1,7 @@
 import { Router } from "express";
-import partner from "./partner_validation";
-import ai from "./ai";
-import fraudDetection from "./fraud_detection";
+import partner from "./partner_validation.js";
+import ai from "./ai.js";
+import fraudDetection from "./fraud_detection.js";
 
 const router = Router();
 

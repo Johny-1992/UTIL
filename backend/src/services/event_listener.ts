@@ -4,7 +4,7 @@ import {
   UsageEvent,
   PartnerProfile,
   FraudAnalysisResult,
-} from '../fraud_detection';
+} from '../fraud_detection.js';
 
 export async function handleUsageEvent(event: UsageEvent): Promise<FraudAnalysisResult> {
   const analysis = analyzeUsage(event);

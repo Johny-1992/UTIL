@@ -1,4 +1,4 @@
-import { PartnerRequest } from '../models/partnerRequest';
+import { PartnerRequest } from '../models/partnerRequest.js';
 
 export class PartnerOnboardingService {
 

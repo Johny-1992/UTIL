@@ -2,7 +2,7 @@ import {
   calculateRewards,
   transferUtil,
   convertToUSDT
-} from "../../services/rewardsService";
+} from '../../services/rewardsService.js';
 
 export const rewardController = async (req: any) =>
   calculateRewards(req.partnerId, req.userId, req.amountSpent);

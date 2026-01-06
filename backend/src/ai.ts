@@ -3,9 +3,9 @@ import {
   analyzeUsage,
   analyzePartner,
   evaluateOnboardPartner,
-} from './fraud_detection';
-import { syncRewardDemo, registerPartnerDemo } from './services/sync_chain';
-import { encodeContext, decodeContext } from './services/qr_service';
+} from './fraud_detection.js';
+import { syncRewardDemo, registerPartnerDemo } from './services/sync_chain.js';
+import { encodeContext, decodeContext } from './services/qr_service.js';
 
 const router = Router();
 

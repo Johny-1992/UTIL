@@ -1,14 +1,13 @@
 import 'dotenv/config';
 import express, { Request, Response } from 'express';
-import partnerValidation from './partner_validation';
-import aiRouter from './ai';
-import apiRouter from './api';
+import partnerValidation from './partner_validation.js';
+import aiRouter from './ai.js';
+import apiRouter from './api/index.js';
 
 const app = express();
 
-// PORT configuré via .env ou 3000 par défaut
-const PORT: number = Number(process.env.PORT) || 3000;
-
+// PORT configuré via .env ou 8080
+const PORT: number = Number(process.env.PORT) || 8080;
 // Faire confiance au proxy (Nginx) pour les IP / X-Forwarded-For
 app.set('trust proxy', true);
 

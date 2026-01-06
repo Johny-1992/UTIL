@@ -1,4 +1,4 @@
-import { BaseModel } from './baseModel';
+import { BaseModel } from './baseModel.js';
 
 export type PartnerRequestStatus = 'PENDING_AI' | 'AUTO_ACCEPTED' | 'AUTO_REJECTED' | 'WAITING_SIGNER' | 'APPROVED';
 

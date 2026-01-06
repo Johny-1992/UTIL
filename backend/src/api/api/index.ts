@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
-import { onboardPartner } from './partner.onboard';
-import { computeUTIL } from './reward.compute';
-import { exchangeUTIL } from './util.exchange';
+import { onboardPartner } from './partner.onboard.js';
+import { computeUTIL } from './reward.compute.js';
+import { exchangeUTIL } from './util.exchange.js';
 
 const router = Router();
 

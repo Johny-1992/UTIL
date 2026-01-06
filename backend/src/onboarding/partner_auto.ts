@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { generateOmniutilQR } from '../qr/omniutil_qr';
+import { generateOmniutilQR } from '../qr/omniutil_qr.js';
 
 const router = Router();
 

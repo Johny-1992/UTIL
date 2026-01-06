@@ -1,7 +1,7 @@
-import { users, updateUserBalance } from "../models/userModel";
-import { getPartnerRewardRate } from "../models/partnerModel";
-import { audit } from "../utils/auditLogger";
-import { antiFraudCheck } from "../utils/antiFraudGuard";
+import { users, updateUserBalance } from '../models/userModel.js';
+import { getPartnerRewardRate } from '../models/partnerModel.js';
+import { audit } from '../utils/auditLogger.js';
+import { antiFraudCheck } from '../utils/antiFraudGuard.js';
 
 export const calculateRewards = (
   partnerId: string,
