@@ -1,0 +1,27 @@
+{
+  "name": "omniutil",
+  "version": "1.0.0",
+  "description": "OMNIUTIL est une infrastructure universelle de fidélité, de récompense et d’échange de valeur.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Johny-1992/UTIL.git"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-viem": "^3.0.1",
+    "@types/node": "^25.0.3",
+    "dotenv": "^17.2.3",
+    "ethers": "^6.16.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.4.0",
+    "viem": "^2.43.4"
+  },
+  "type": "module"
+}

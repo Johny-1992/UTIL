@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://omniutil.vercel.app/sitemap.xml
