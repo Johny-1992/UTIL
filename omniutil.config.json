@@ -1,0 +1,8 @@
+{
+  "mode": "DEMO",
+  "network": "bsc-testnet",
+  "contractAddress": "0xcFFDa93651Fc8a514e3B06A7a7bA4BEe663B8bA1",
+  "rewardEngine": "ON",
+  "aiValidation": "AUTO+HUMAN_FALLBACK",
+  "qrUniversal": true
+}

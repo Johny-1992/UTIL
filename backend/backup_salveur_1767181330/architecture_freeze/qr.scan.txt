@@ -1,0 +1,30 @@
+src/api/qr.ts:import { generateOmniutilQR } from '../qr/omniutil_qr';
+src/api/qr.ts:router.get('/generate-omniutil-qr', async (req, res) => {
+src/api/qr.ts:    const qrCode = await generateOmniutilQR();
+src/api/qr.ts:    if (!qrCode) {
+src/api/qr.ts:      return res.status(500).json({ error: "Failed to generate QR code" });
+src/api/qr.ts:    res.status(200).json({ qrCode });
+src/api/qr.ts:    res.status(500).json({ error: "Failed to generate QR code" });
+src/core/omniutil.constants.ts:export const OMNIUTIL_QR_VERSION = "v1";
+src/qr/omniutil_qr.ts:import QRCode from 'qrcode';
+src/qr/omniutil_qr.ts:interface OmniUtilQRData {
+src/qr/omniutil_qr.ts:// QR code unique pour OmniUtil
+src/qr/omniutil_qr.ts:export async function generateOmniutilQR(): Promise<string | null> {
+src/qr/omniutil_qr.ts:  const qrData: OmniUtilQRData = {
+src/qr/omniutil_qr.ts:    type: "omniutil_unique_qr",
+src/qr/omniutil_qr.ts:    return await QRCode.toDataURL(JSON.stringify(qrData));
+src/qr/omniutil_qr.ts:    console.error('Erreur génération QR:', err);
+src/onboarding/partner_auto.ts:import { generateOmniutilQR } from '../qr/omniutil_qr';
+src/onboarding/partner_auto.ts:    const qr = await generateOmniutilQR(); 
+src/onboarding/partner_auto.ts:        qr
+src/services/qr_service.ts.step11fix.bak:    throw new Error('Invalid QR context: missing partnerId');
+src/services/qr_service.ts.step11fix.bak:    throw new Error('partnerId is required to build QR context');
+src/ai.ts:import { encodeContext, decodeContext } from './services/qr_service';
+src/ai.ts:// QR encode (contexte campagne/partenaire/utilisateur)
+src/ai.ts:router.post('/qr/encode', (req: Request, res: Response) => {
+src/ai.ts:    console.error('Erreur /qr/encode:', err);
+src/ai.ts:    return res.status(500).json({ error: 'Erreur interne QR encode' });
+src/ai.ts:// QR decode
+src/ai.ts:router.post('/qr/decode', (req: Request, res: Response) => {
+src/ai.ts:    console.error('Erreur /qr/decode:', err);
+src/ai.ts:    return res.status(500).json({ error: 'Erreur interne QR decode' });

@@ -1,0 +1,5 @@
+🎯 Rapport complet de déploiement
+Site URL : https://omniutil.vercel.app
+Frontend build : OK
+Backend URL : https://omniutil.onrender.com
+QR Code : /root/omniutil/omniutil-qr.png

@@ -1,0 +1,27 @@
+node:internal/errors:540
+      throw error;
+      ^
+
+SystemError [ERR_SYSTEM_ERROR]: A system error occurred: uv_interface_addresses returned Unknown system error 13 (Unknown system error 13)
+    at Object.networkInterfaces (node:os:217:16)
+    at Object.<anonymous> (/root/.nvm/versions/node/v22.21.1/lib/node_modules/http-server/bin/http-server:18:17)
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+    at Object..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  code: 'ERR_SYSTEM_ERROR',
+  info: {
+    errno: 13,
+    code: 'Unknown system error 13',
+    message: 'Unknown system error 13',
+    syscall: 'uv_interface_addresses'
+  },
+  errno: [Getter/Setter],
+  syscall: [Getter/Setter]
+}
+
+Node.js v22.21.1

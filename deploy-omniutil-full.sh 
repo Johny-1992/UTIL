@@ -1,0 +1,45 @@
+#!/bin/bash
+set -e
+
+echo "🌟 Début du déploiement complet OmniUtil"
+
+FRONTEND_DIR="./frontend"
+BACKEND_URL="https://omniutil.onrender.com"
+ALIAS_DOMAIN="omniutil.vercel.app"
+
+# 1️⃣ Nettoyage
+echo "🧹 Nettoyage des anciens builds et modules..."
+rm -rf $FRONTEND_DIR/build $FRONTEND_DIR/node_modules $FRONTEND_DIR/.vercel
+
+# 2️⃣ Installation des dépendances frontend
+echo "📦 Installation des dépendances frontend..."
+cd $FRONTEND_DIR
+npm install
+
+# 3️⃣ Préparer les fichiers publics
+mkdir -p public
+if [ -f ../sitemap.xml ]; then
+    cp ../sitemap.xml public/sitemap.xml
+fi
+if [ -f ../google05be3ba8343d04a2.html ]; then
+    cp ../google05be3ba8343d04a2.html public/google05be3ba8343d04a2.html
+fi
+
+# 4️⃣ Build frontend
+echo "🚀 Build frontend..."
+npm run build
+
+# 5️⃣ Déploiement frontend sur Vercel
+echo "🌐 Déploiement frontend sur Vercel..."
+vercel --prod --yes
+vercel alias set $(vercel list | grep "Production" | awk '{print $2}') $ALIAS_DOMAIN
+
+# 6️⃣ Vérifications post-déploiement
+echo "🔍 Vérifications des fichiers essentiels..."
+[ -f public/sitemap.xml ] && echo "✅ sitemap.xml présent" || echo "⚠️ sitemap.xml manquant"
+[ -f public/google05be3ba8343d04a2.html ] && echo "✅ Google verification présent" || echo "⚠️ Google verification manquant"
+[ -d ./build ] && echo "✅ Build frontend présent" || echo "⚠️ Build frontend manquant"
+echo "✅ Backend accessible à : $BACKEND_URL"
+
+echo "🎯 Déploiement complet terminé !"
+echo "🌐 Site disponible sur : https://$ALIAS_DOMAIN"

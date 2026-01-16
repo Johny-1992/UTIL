@@ -1,0 +1,10 @@
+src/services/rewardsService.ts:import { audit } from "../utils/auditLogger";
+src/services/rewardsService.ts:  audit("CALCULATE_REWARD", {
+src/services/rewardsService.ts:  audit("TRANSFER_UTIL", { fromUserId, toUserId, amount });
+src/services/rewardsService.ts:  audit("CONVERT_USDT", { userId, amount });
+src/utils/auditLogger.ts:export const audit = (event: AuditEvent, payload: Record<string, any>) => {
+src/utils/antiFraudGuard.ts:import { audit } from "./auditLogger";
+src/utils/antiFraudGuard.ts:    audit("FRAUD_BLOCK", { userId, reason: "INVALID_AMOUNT", amount });
+src/utils/antiFraudGuard.ts:    audit("FRAUD_BLOCK", {
+src/audit/auditLogger.ts:export const audit = (action: string, payload: any) => {
+src/audit/auditLogger.ts:    "audit.log",

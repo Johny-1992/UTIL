@@ -1,0 +1,23 @@
+export interface OnChainReward {
+  userId: string;
+  partnerId: string;
+  utilAmount: number;
+  txMetadata?: Record<string, unknown>;
+}
+
+export interface OnChainResult {
+  success: boolean;
+  txHash: string;
+  network: string;
+}
+
+export async function recordRewardOnChain(payload: OnChainReward): Promise<OnChainResult> {
+  const network = process.env.CHAIN_NETWORK || 'demo';
+  const txHash = `demo-${Date.now()}-${Math.random().toString(16).slice(2, 10)}`;
+  console.log(JSON.stringify({ type: 'onchain_reward', network, payload, txHash }));
+  return {
+    success: true,
+    txHash,
+    network,
+  };
+}

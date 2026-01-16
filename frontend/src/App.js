@@ -1,12 +1,7 @@
-import React from 'react';
+import Home from "./components/Home";
 
 function App() {
-  return (
-    <div>
-      <h1>OmniUtil Frontend</h1>
-      <p>Application opérationnelle</p>
-    </div>
-  );
+  return <Home />;
 }
 
 export default App;

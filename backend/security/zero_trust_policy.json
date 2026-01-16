@@ -1,0 +1,7 @@
+{
+  "qr_event_validation": true,
+  "anti_replay": true,
+  "signed_logs": true,
+  "strict_types": true,
+  "created": "2026-01-14T07:06:32.868Z"
+}

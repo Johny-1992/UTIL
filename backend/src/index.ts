@@ -1,36 +1,33 @@
 import 'dotenv/config';
 import express, { Request, Response } from 'express';
+import helmet from 'helmet';
 import partnerValidation from './partner_validation.js';
 import aiRouter from './ai.js';
 import apiRouter from './api/index.js';
 
 const app = express();
-
-// PORT configuré via .env ou 8080
 const PORT: number = Number(process.env.PORT) || 8080;
-// Faire confiance au proxy (Nginx) pour les IP / X-Forwarded-For
+
 app.set('trust proxy', true);
-
-// Middleware global JSON + logger
 app.use(express.json());
+app.use(helmet());
 
-// Route de santé publique (sans auth, sans rate limit)
+// Route racine redirige vers le frontend
+app.get('/', (_req: Request, res: Response) => {
+  res.redirect('http://localhost:8081/index.html');
+});
+
+// Route santé
 app.get('/health', (_req: Request, res: Response) => {
   return res.status(200).json({ status: 'ok' });
 });
 
-// À partir d'ici : rate limit + clé API
-
-// Ancienne logique /api/partner (valideur)
+// APIs
 app.use('/api/partner', partnerValidation);
-
-// AI coordonnateur
 app.use('/api/ai', aiRouter);
-
-// Nouvelle API métier OMNIUTIL (onboard, reward, util)
 app.use('/api', apiRouter);
 
-// Démarrage du serveur
+// Start server
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
 });

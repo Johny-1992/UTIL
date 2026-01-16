@@ -1,0 +1,111 @@
+export type RiskLevel = 'low' | 'medium' | 'high';
+export type RecommendedAction = 'allow' | 'review' | 'block';
+
+export interface UsageEvent {
+  userId: string;
+  partnerId: string;
+  amount: number;
+  timestamp: string;
+  country?: string;
+  channel?: string;
+  device?: string;
+}
+
+export interface PartnerProfile {
+  partnerId: string;
+  kycCompleted: boolean;
+  country?: string;
+  category?: string;
+  complaints?: number;
+}
+
+export interface FraudAnalysisResult {
+  score: number; // 0-100
+  risk: RiskLevel;
+  recommendedAction: RecommendedAction;
+  reasons: string[];
+}
+
+function classify(score: number): { risk: RiskLevel; action: RecommendedAction } {
+  if (score >= 80) return { risk: 'low', action: 'allow' };
+  if (score >= 50) return { risk: 'medium', action: 'review' };
+  return { risk: 'high', action: 'block' };
+}
+
+export function analyzeUsage(event: UsageEvent): FraudAnalysisResult {
+  let score = 70;
+  const reasons: string[] = [];
+
+  if (event.amount <= 0) {
+    score -= 40;
+    reasons.push('amount_non_positive');
+  }
+  if (event.amount > 1000) {
+    score -= 20;
+    reasons.push('large_amount');
+  }
+  if (!event.country) {
+    score -= 5;
+    reasons.push('country_missing');
+  }
+  if (!event.channel) {
+    score -= 5;
+    reasons.push('channel_missing');
+  }
+  if (!event.device) {
+    score -= 5;
+    reasons.push('device_missing');
+  }
+
+  if (reasons.length === 0) {
+    reasons.push('baseline_ok');
+  }
+
+  if (score < 0) score = 0;
+  if (score > 100) score = 100;
+
+  const { risk, action } = classify(score);
+  return {
+    score,
+    risk,
+    recommendedAction: action,
+    reasons,
+  };
+}
+
+export function analyzePartner(profile: PartnerProfile): FraudAnalysisResult {
+  let score = 75;
+  const reasons: string[] = [];
+
+  if (!profile.kycCompleted) {
+    score -= 30;
+    reasons.push('kyc_incomplete');
+  }
+  if ((profile.complaints ?? 0) > 10) {
+    score -= 20;
+    reasons.push('many_complaints');
+  }
+  if (!profile.country) {
+    score -= 5;
+    reasons.push('country_missing');
+  }
+  if (!profile.category) {
+    score -= 5;
+    reasons.push('category_missing');
+  }
+
+  if (reasons.length === 0) {
+    reasons.push('baseline_ok');
+  }
+
+  if (score < 0) score = 0;
+  if (score > 100) score = 100;
+
+  const { risk, action } = classify(score);
+  return {
+    score,
+    risk,
+    recommendedAction: action,
+    reasons,
+  };
+}

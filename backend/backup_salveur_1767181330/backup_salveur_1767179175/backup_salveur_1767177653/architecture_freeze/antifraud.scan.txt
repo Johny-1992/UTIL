@@ -1,0 +1,9 @@
+src/api/index.ts:import fraudDetection from "./fraud_detection";
+src/api/index.ts:router.use("/fraud", fraudDetection);
+src/services/rewardsService.ts:import { antiFraudCheck } from "../utils/antiFraudGuard";
+src/services/rewardsService.ts:  if (!antiFraudCheck(userId, amountSpent)) {
+src/services/rewardsService.ts:  if (!antiFraudCheck(fromUserId, amount)) {
+src/services/rewardsService.ts:  if (!antiFraudCheck(userId, amount)) {
+src/services/event_listener.ts:} from '../fraud_detection';
+src/utils/antiFraudGuard.ts:export const antiFraudCheck = (
+src/ai.ts:} from './fraud_detection';

@@ -1,0 +1,20 @@
+{
+  "util": {
+    "balances": {
+      "user:u1": 42,
+      "wallet:0x40BB46B9D10Dd121e7D2150EC3784782ae648090": 0
+    }
+  },
+  "partners": {
+    "p1": {
+      "id": "p1",
+      "createdAt": "2025-12-23T07:02:21.321Z",
+      "updatedAt": "2025-12-23T07:02:21.324Z"
+    }
+  },
+  "meta": {
+    "mode": "demo",
+    "createdAt": "2025-12-23T05:28:46+00:00",
+    "updatedAt": "2025-12-23T07:02:21.325Z"
+  }
+}

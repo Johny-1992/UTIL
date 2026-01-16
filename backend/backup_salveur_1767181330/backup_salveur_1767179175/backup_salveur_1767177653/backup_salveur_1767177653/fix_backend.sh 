@@ -1,0 +1,37 @@
+#!/bin/bash
+# Script : fix_backend.sh
+# But : Recompiler le backend et corriger les exports pour que les endpoints fonctionnent
+
+echo "📦 Nettoyage et reconstruction du backend"
+
+# Supprime l'ancien dist
+rm -rf dist
+
+# Installe les dépendances et compile TypeScript
+echo "🔹 Installation des dépendances..."
+npm install
+
+echo "🔹 Compilation TypeScript..."
+npx tsc
+
+# Vérifie si index.js existe
+if [ ! -f dist/index.js ]; then
+    echo "❌ dist/index.js manquant après compilation !"
+    exit 1
+fi
+
+echo "✅ dist/index.js présent"
+
+# Relance PM2
+echo "🔄 Relance de PM2..."
+pm2 delete omniutil-api || true
+pm2 start dist/index.js --name omniutil-api --watch
+pm2 save
+
+# Vérifie santé API
+curl -s http://127.0.0.1:3000/health | grep ok >/dev/null
+if [ $? -eq 0 ]; then
+    echo "✅ Backend fonctionnel sur port 3000"
+else
+    echo "❌ Backend ne répond pas correctement"
+fi

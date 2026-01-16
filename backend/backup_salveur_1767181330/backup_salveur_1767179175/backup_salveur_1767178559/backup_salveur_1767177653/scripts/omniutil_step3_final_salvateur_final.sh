@@ -1,0 +1,61 @@
+#!/bin/bash
+echo "================================================="
+echo "🚀 OMNIUTIL — STEP 3 SALVATEUR ULTIMATE FINAL"
+echo "================================================="
+
+# Chemins
+SRC_INDEX="/root/omniutil/backend/src/index.ts"
+DIST_DIR="/root/omniutil/backend/dist"
+PM2_APP="omniutil-api"
+
+echo "📦 Vérification fichiers essentiels..."
+if [[ -f "/root/omniutil/backend/src/api/ai.ts" ]] && [[ -f "/root/omniutil/backend/src/api/partner_validation.ts" ]] && [[ -f "$SRC_INDEX" ]]; then
+    echo "✅ Fichiers essentiels trouvés."
+else
+    echo "❌ Fichiers essentiels manquants. Vérifie le répertoire src."
+    exit 1
+fi
+
+echo "✏️ Correction index.ts pour PORT..."
+# Remplace la déclaration du PORT
+sed -i "s|const PORT.*|const PORT: number = Number(process.env.PORT) || 3000;|" "$SRC_INDEX"
+
+# Suppression dist
+echo "📦 Suppression $DIST_DIR..."
+rm -rf "$DIST_DIR"
+
+# Installation dépendances
+echo "📦 Installation dépendances..."
+npm install
+
+# Compilation TypeScript
+echo "📦 Compilation TypeScript..."
+tsc
+if [[ $? -ne 0 ]]; then
+    echo "❌ Erreur lors de la compilation TypeScript."
+    exit 1
+fi
+echo "✅ Compilation terminée."
+
+# Redémarrage PM2
+echo "🔄 Redémarrage PM2..."
+pm2 delete "$PM2_APP" 2>/dev/null
+pm2 start "$DIST_DIR/index.js" --name "$PM2_APP"
+pm2 save
+
+# Vérification /health
+echo "🌐 Vérification endpoint /health..."
+for i in {1..10}; do
+    STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3000/health)
+    if [[ "$STATUS" == "200" ]]; then
+        echo "🎉 /health est disponible ! Server OK."
+        exit 0
+    else
+        echo "⚠️ Tentative $i: /health → HTTP $STATUS, redémarrage PM2..."
+        pm2 restart "$PM2_APP" --update-env
+        sleep 2
+    fi
+done
+
+echo "❌ /health toujours non disponible après 10 tentatives."
+exit 1

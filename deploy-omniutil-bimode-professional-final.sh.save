@@ -1,0 +1,137 @@
+#!/bin/bash
+set -e
+
+echo "=========================================="
+echo "🚀 OMNIUTIL – BIMODE PROFESSIONNEL FINAL"
+echo "=========================================="
+
+ROOT_DIR=$(pwd)
+
+# --------------------------------------------------
+# 1️⃣ Chargement .env (OBLIGATOIRE)
+# --------------------------------------------------
+if [ ! -f ".env" ]; then
+  echo "❌ .env introuvable – arrêt"
+  exit 1
+fi
+
+set -a
+source .env
+set +a
+
+echo "✅ .env chargé"
+echo "🔧 MODE ACTUEL : $MODE"
+
+# --------------------------------------------------
+# 2️⃣ Vérification structure projet
+# --------------------------------------------------
+REQUIRED_DIRS=("frontend" "backend" "contracts" "scripts")
+for dir in "${REQUIRED_DIRS[@]}"; do
+  if [ ! -d "$dir" ]; then
+    echo "❌ Dossier manquant: $dir"
+    exit 1
+  fi
+done
+
+mkdir -p versions/{frontend,backend,contracts,cpp}
+mkdir -p logs
+
+echo "✅ Structure projet OK"
+
+# --------------------------------------------------
+# 3️⃣ FRONTEND – deps + build
+# --------------------------------------------------
+cd frontend
+
+echo "📦 Frontend deps"
+npm install
+
+echo "🏗️ Build frontend"
+npm run build
+
+cd "$ROOT_DIR"
+
+# --------------------------------------------------
+# 4️⃣ SEO / PUBLIC (création uniquement si manquant)
+# --------------------------------------------------
+PUBLIC_DIR="frontend/public"
+mkdir -p "$PUBLIC_DIR"
+
+[ ! -f "$PUBLIC_DIR/robots.txt" ] && echo -e "User-agent: *\nAllow: /" > "$PUBLIC_DIR/robots.txt"
+[ ! -f "$PUBLIC_DIR/sitemap.xml" ] && echo "<urlset></urlset>" > "$PUBLIC_DIR/sitemap.xml"
+[ ! -f "$PUBLIC_DIR/google05be3ba8343d04a2.html" ] && echo "google-site-verification" > "$PUBLIC_DIR/google05be3ba8343d04a2.html"
+
+echo "✅ SEO / public vérifié"
+
+# --------------------------------------------------
+# 5️⃣ BACKEND – deps uniquement
+# --------------------------------------------------
+cd backend
+echo "🔗 Backend"
+npm install
+cd "$ROOT_DIR"
+
+# --------------------------------------------------
+# 6️⃣ SMART CONTRACT – EXISTANT UNIQUEMENT
+# --------------------------------------------------
+echo "📄 Smart Contract"
+
+CONTRACT_PATH="contracts/core/OmniUtilCore.sol"
+OUTPUT_DIR="versions/contracts"
+
+if [ -f "$CONTRACT_PATH" ]; then
+  echo "Contrat trouvé: $CONTRACT_PATH"
+  mkdir -p "$OUTPUT_DIR"
+
+  echo "📄 Compilation du cont# --------------------------------------------------
+# 7️⃣ C++ ORCHESTRATEUR – auto Makefile si absent
+# --------------------------------------------------
+if [ -d "cpp" ]; then
+  cd cpp
+  if [ ! -f "Makefile" ]; then
+    echo "⚙️ Création Makefile C++ minimal"
+    cat <<EOF > Makefile
+all:
+\tg++ -std=c++17 -O2 *.cpp -o orchestrator || true
+EOF
+  fi
+
+  make || echo "⚠️ Compilation C++ ignorée"
+  cd "$ROOT_DIR"
+else
+  echo "ℹ️ Dossier cpp absent – orchestration ignorée"
+fi
+
+# --------------------------------------------------
+# 8️⃣ BIMODE LOGIC (DEMO / LIVE)
+# --------------------------------------------------
+echo "🧠 BIMODE LOGIC"
+
+if [ "$MODE" = "DEMO" ]; then
+  echo "🔵 Mode DEMO actif"
+elif [ "$MODE" = "LIVE" ]; then
+  echo "🟢 Mode LIVE actif"
+else
+  echo "⚠️ MODE inconnu – fallback DEMO"
+fi
+
+# --------------------------------------------------
+# 9️⃣ SNAPSHOT VERSION
+# --------------------------------------------------
+VERSION="v1.0.0"
+echo "📦 Snapshot version $VERSION"
+tar czf "versions/frontend/frontend-$VERSION.tar.gz" frontend/build || true
+
+# --------------------------------------------------
+# 🔟 DEPLOIEMENT VERCEL
+# --------------------------------------------------
+echo "🌍 Déploiement frontend sur Vercel"
+
+cd frontend
+vercel --prod --yes
+cd "$ROOT_DIR"
+
+echo "=========================================="
+echo "🎉 OMNIUTIL – BIMODE PROFESSIONNEL OPÉRATIONNEL"
+echo "🌐 MODE : $MODE"
+echo "=========================================="

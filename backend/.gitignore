@@ -1,9 +1,7 @@
-# Backups et anciens builds
-backups/
-backup_*
-*.tar.gz
-*.bak
-*.log
-dist/
 node_modules/
+nohup.out
+src/logs/
+*.log
 .env
+.env.*
+*.pid

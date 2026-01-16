@@ -1,0 +1,15 @@
+{
+  "name": "OMNIUTIL",
+  "philosophy": "Reward real-world consumption with instant UTIL",
+  "pillars": [
+    "On-chain contract (BSC)",
+    "AI decision coordinator",
+    "C++ deterministic orchestrator",
+    "Universal QR entry point",
+    "Real utility exchange (services / USDT)"
+  ],
+  "creator_rights": "Lifetime on-chain royalties",
+  "inflation_policy": "Usage-based + burn + capped mint",
+  "immutable": true,
+  "timestamp": 1768374392682
+}

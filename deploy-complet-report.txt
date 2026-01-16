@@ -1,0 +1,15 @@
+🕵️‍♂️ Vérifications post-déploiement...
+Site URL : https://omniutil.vercel.app
+⚠️ google05be3ba8343d04a2.html absent ou HTTP 404
+⚠️ sitemap.xml absent ou HTTP 404
+✅ frontend présent
+✅ backend présent
+✅ contracts présent
+✅ cpp présent
+✅ scripts présent
+⚠️ public manquant
+✅ package.json présent
+✅ hardhat.config.js présent
+✅ README.md présent
+✅ Backend accessible : https://omniutil.onrender.com
+✅ QR code généré : /root/omniutil/omniutil-qr.png

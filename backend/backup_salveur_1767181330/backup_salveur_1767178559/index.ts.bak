@@ -1,0 +1,33 @@
+import 'dotenv/config';
+import express, { Request, Response } from 'express';
+
+import partnerValidation from './partner_validation';
+import aiRouter from './ai';
+import { apiKeyAuth } from './src/middleware/apiKeyAuth';
+
+const app = express();
+
+// PORT configuré via .env ou 3000 par défaut
+const PORT: number = Number(process.env.PORT) || 3000;
+
+// Middleware global pour parser le JSON
+app.use(express.json());
+
+// ✅ Route de santé publique (pas d'auth par clé ici)
+app.get('/health', (_req: Request, res: Response) => {
+  return res.status(200).json({ status: 'ok' });
+});
+
+// 🔐 À partir d'ici, toutes les routes nécessitent la clé API
+app.use(apiKeyAuth);
+
+// Routes protégées
+app.use('/api/partner', partnerValidation);
+app.use('/api/ai', aiRouter);
+
+// Démarrage du serveur
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+export default app;

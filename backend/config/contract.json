@@ -1,0 +1,8 @@
+{
+  "chain": "BSC",
+  "address": "0xcFFDa93651Fc8a514e3B06A7a7bA4BEe663B8bA1",
+  "symbol": "UTIL",
+  "reward_model": "real_consumption_based",
+  "author_rights": "lifetime",
+  "creator_wallet_enforced": true
+}

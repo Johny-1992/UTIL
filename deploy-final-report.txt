@@ -1,0 +1,6 @@
+OMNIUTIL – DÉPLOIEMENT FINAL
+Site: https://omniutil.vercel.app
+Frontend: OK
+Backend: OK
+SEO: OK
+Architecture: STABLE

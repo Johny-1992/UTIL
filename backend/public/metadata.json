@@ -1,0 +1,9 @@
+{
+  "name": "Omniutil",
+  "type": "Universal QR Gateway",
+  "description": "Omniutil est une plateforme universelle basée sur QR code pour connecter partenaires, services et humains.",
+  "url": "https://omniutil.loca.lt/",
+  "qr": "https://omniutil.loca.lt/assets/omniutil_qr.png",
+  "language": "fr",
+  "indexed": true
+}

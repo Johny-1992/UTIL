@@ -1,0 +1,9 @@
+omniutil.duckdns.org {
+    root * /root/omniutil/backend/public
+    encode gzip
+    file_server
+    log {
+        output file /root/omniutil/backend/src/logs/caddy_access.log
+        format single_field common_log
+    }
+}

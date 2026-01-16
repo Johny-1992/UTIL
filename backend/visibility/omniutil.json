@@ -1,0 +1,12 @@
+{
+  "name": "Omniutil",
+  "description": "Global reward infrastructure for real-world consumption",
+  "contract_chain": "BSC",
+  "utility": [
+    "Rewards",
+    "Services",
+    "USDT Exchange"
+  ],
+  "access": "Universal QR",
+  "version": "1.0"
+}

@@ -1,0 +1,14 @@
+🕵️‍♂️ Vérifications post-déploiement...
+Site URL : https://omniutil.vercel.app
+⚠️ google05be3ba8343d04a2.html non accessible (HTTP 404)
+⚠️ sitemap.xml non accessible (HTTP 404)
+⚠️ rewards manquant dans frontend
+⚠️ airdrops manquant dans frontend
+⚠️ nft manquant dans frontend
+⚠️ dashboard manquant dans frontend
+⚠️ cpp manquant dans frontend
+⚠️ contracts manquant dans frontend
+✅ qr trouvé dans frontend
+⚠️ ai manquant dans frontend
+✅ Backend Render accessible
+✅ QR code généré : omniutil-qr.png

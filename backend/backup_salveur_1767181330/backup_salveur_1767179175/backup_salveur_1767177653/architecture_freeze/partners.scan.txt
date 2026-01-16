@@ -1,0 +1,98 @@
+src/index.ts:import partnerValidation from './partner_validation';
+src/index.ts:// Ancienne logique /api/partner (valideur)
+src/index.ts:app.use('/api/partner', partnerValidation);
+src/api/index.ts:import partner from "./partner_validation";
+src/api/index.ts:router.use("/partner", partner);
+src/api/partner_validation.ts:    console.error("Error processing partnership request:", err);
+src/api/partner_validation.ts:    res.status(500).json({ error: "Failed to process partnership request" });
+src/api/rewards/rewards.ts:  calculateRewards(req.partnerId, req.userId, req.amountSpent);
+src/api/api/index.ts:import { onboardPartner } from './partner.onboard';
+src/api/api/index.ts:// POST /api/partner/onboard
+src/api/api/index.ts:router.post('/partner/onboard', (req: Request, res: Response) => {
+src/api/api/index.ts:  const partner = req.body;
+src/api/api/index.ts:    const result = onboardPartner(partner);
+src/api/api/partner.onboard.ts:export function onboardPartner(partner: any) {
+src/api/api/partner.onboard.ts:  if (partner.score >= 80) {
+src/api/api/partner.onboard.ts:    return { status: "accepted", partner };
+src/api/api/partner.onboard.ts:  return { status: "rejected", partner };
+src/api/api/index.js:const partner_onboard_1 = require("./partner.onboard");
+src/api/api/index.js:// POST /api/partner/onboard
+src/api/api/index.js:router.post('/partner/onboard', (req, res) => {
+src/api/api/index.js:    const partner = req.body;
+src/api/api/index.js:        const result = (0, partner_onboard_1.onboardPartner)(partner);
+src/api/api/partner.onboard.js:function onboardPartner(partner) {
+src/api/api/partner.onboard.js:    if (partner.score >= 80) {
+src/api/api/partner.onboard.js:        return { status: "accepted", partner };
+src/api/api/partner.onboard.js:    return { status: "rejected", partner };
+src/constitution/royalty.ts:  appliesTo: ["partners", "derivatives", "integrations"]
+src/full_ultimate_omniutil_phase2.sh:  appliesTo: ["partners", "derivatives", "integrations"]
+src/qr/omniutil_qr.ts:const OMNUTIL_API_URL = "https://api.omniutil.com/partner/request";
+src/qr/omniutil_qr.ts:    action: "request_partnership",
+src/onboarding/partner_auto.ts:    const { partner_id } = req.body;
+src/onboarding/partner_auto.ts:    if (!partner_id) return res.status(400).json({ error: 'partner_id manquant' });
+src/onboarding/partner_auto.ts:        message: `Partenaire ${partner_id} onboardé avec succès!`,
+src/onchain/ledger.ts:  partners: Record<string, Partner>;
+src/onchain/ledger.ts:  partners: {},
+src/index.tsoii:import partnerValidation from "./api/partner_validation";
+src/index.tsoii:app.use("/api/partner", apiAuth, partnerValidation);
+src/services/rewardsService.ts:import { getPartnerRewardRate } from "../models/partnerModel";
+src/services/rewardsService.ts:  partnerId: string,
+src/services/rewardsService.ts:  const rate = getPartnerRewardRate(partnerId);
+src/services/rewardsService.ts:    partnerId,
+src/services/sync_chain.ts:  partnerId: string;
+src/services/sync_chain.ts:  if (!ledger.partners[input.partnerId]) {
+src/services/sync_chain.ts:    ledger.partners[input.partnerId] = {
+src/services/sync_chain.ts:      id: input.partnerId,
+src/services/sync_chain.ts:    ledger.partners[input.partnerId].updatedAt = new Date().toISOString();
+src/services/sync_chain.ts:  const partnerId: string =
+src/services/sync_chain.ts:    proposal.partnerId ||
+src/services/sync_chain.ts:    (proposal.name ? String(proposal.name).toLowerCase().replace(/\s+/g, '_') : 'unknown_partner');
+src/services/sync_chain.ts:  const existing = ledger.partners[partnerId];
+src/services/sync_chain.ts:  ledger.partners[partnerId] = {
+src/services/sync_chain.ts:    partnerId,
+src/services/sync_chain.ts:    partnerId,
+src/services/sync_chain.ts:    stored: ledger.partners[partnerId],
+src/services/qr_service.ts:  partnerId: string;
+src/services/event_listener.ts:  console.log(JSON.stringify({ type: 'partner_profile', profile, analysis }));
+src/services/qr_service.ts.step11fix.bak:  partnerId: string;
+src/services/qr_service.ts.step11fix.bak:  if (!parsed.partnerId || typeof parsed.partnerId !== 'string') {
+src/services/qr_service.ts.step11fix.bak:    throw new Error('Invalid QR context: missing partnerId');
+src/services/qr_service.ts.step11fix.bak:  const { partnerId, userId, campaignId, ...rest } = req.body || {};
+src/services/qr_service.ts.step11fix.bak:  if (typeof partnerId !== 'string') {
+src/services/qr_service.ts.step11fix.bak:    throw new Error('partnerId is required to build QR context');
+src/services/qr_service.ts.step11fix.bak:  const ctx: QrContext = { partnerId };
+src/services/sync_chain.js:    if (!ledger.partners[input.partnerId]) {
+src/services/sync_chain.js:        ledger.partners[input.partnerId] = {
+src/services/sync_chain.js:            id: input.partnerId,
+src/services/sync_chain.js:        ledger.partners[input.partnerId].updatedAt = new Date().toISOString();
+src/services/sync_chain.js:    const partnerId = proposal.partnerId ||
+src/services/sync_chain.js:        (proposal.name ? String(proposal.name).toLowerCase().replace(/\s+/g, '_') : 'unknown_partner');
+src/services/sync_chain.js:    const existing = ledger.partners[partnerId];
+src/services/sync_chain.js:    ledger.partners[partnerId] = {
+src/services/sync_chain.js:        partnerId,
+src/services/sync_chain.js:        partnerId,
+src/services/sync_chain.js:        stored: ledger.partners[partnerId],
+src/services/sync_chain.ts.step11.bak:  partnerId: string;
+src/models/partnerModel.ts:export const partners: Record<string, Partner> = {
+src/models/partnerModel.ts:export const getPartnerRewardRate = (partnerId: string): number =>
+src/models/partnerModel.ts:  partners[partnerId]?.rewardRate ?? 0;
+src/utils/OmniUtil.json:          "name": "partner",
+src/utils/OmniUtil.json:          "name": "partner",
+src/utils/OmniUtil.json:          "name": "partner",
+src/utils/OmniUtil.json:      "name": "partnerRewardRates",
+src/utils/omniutil_abi.json:          "name": "partner",
+src/utils/omniutil_abi.json:          "name": "partner",
+src/utils/omniutil_abi.json:          "name": "partner",
+src/utils/omniutil_abi.json:      "name": "partnerRewardRates",
+src/tests/testOmniUtilFull.ts:  const partnerId = "partner_001";
+src/tests/testOmniUtilFull.ts:  ledger.partners[partnerId] = ledger.partners[partnerId] || { updatedAt: new Date().toISOString() };
+src/ai.ts:router.post('/analyze/partner', (req: Request, res: Response) => {
+src/ai.ts:    console.error('Erreur /analyze/partner:', err);
+src/ai.ts:router.post('/onboard/partner', (req: Request, res: Response) => {
+src/ai.ts:    console.error('Erreur /onboard/partner:', err);
+src/ai.ts:  const { userId, partnerId, utilAmount } = req.body;
+src/ai.ts:    typeof partnerId !== 'string' ||
+src/ai.ts:      details: 'userId, partnerId doivent être des chaînes, utilAmount un nombre.',
+src/ai.ts:    const result = syncRewardDemo({ userId, partnerId, utilAmount });
+src/fraud_detection.ts:  partnerId: string;
+src/fraud_detection.ts:  partnerId: string;

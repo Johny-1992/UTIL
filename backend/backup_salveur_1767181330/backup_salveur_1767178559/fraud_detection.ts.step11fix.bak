@@ -1,0 +1,208 @@
+export type RiskLevel = 'low' | 'medium' | 'high';
+export type RecommendedAction = 'allow' | 'review' | 'block';
+
+export interface FraudAnalysisResult {
+  score: number;              // 0-100
+  risk: RiskLevel;
+  recommendedAction: RecommendedAction;
+  reasons: string[];
+}
+
+// --- Classification générique ---
+
+function classify(score: number): { risk: RiskLevel; recommendedAction: RecommendedAction } {
+  if (score >= 80) {
+    return { risk: 'low', recommendedAction: 'allow' };
+  }
+  if (score >= 50) {
+    return { risk: 'medium', recommendedAction: 'review' };
+  }
+  return { risk: 'high', recommendedAction: 'block' };
+}
+
+// --- Analyse d'un évènement d'usage ---
+
+export interface UsageEvent {
+  userId: string;
+  partnerId: string;
+  amount: number;
+  timestamp: string;
+  country?: string;
+  channel?: string;
+  device?: string;
+}
+
+export function analyzeUsage(event: UsageEvent): FraudAnalysisResult {
+  let score = 70;
+  const reasons: string[] = [];
+
+  if (event.amount <= 0) {
+    score -= 40;
+    reasons.push('amount_non_positive');
+  } else if (event.amount > 1000) {
+    score -= 20;
+    reasons.push('large_amount');
+  } else {
+    reasons.push('baseline_ok');
+  }
+
+  if (!event.country) {
+    score -= 5;
+    reasons.push('no_country');
+  }
+
+  const { risk, recommendedAction } = classify(score);
+  return { score, risk, recommendedAction, reasons };
+}
+
+// --- Analyse d'un profil partenaire simple ---
+
+export interface PartnerProfile {
+  partnerId: string;
+  kycCompleted: boolean;
+  country?: string;
+  category?: string;
+  complaints?: number;
+}
+
+export function analyzePartner(profile: PartnerProfile): FraudAnalysisResult {
+  let score = 70;
+  const reasons: string[] = [];
+
+  if (profile.kycCompleted) {
+    score += 10;
+    reasons.push('kyc_completed');
+  } else {
+    score -= 20;
+    reasons.push('no_kyc');
+  }
+
+  if (typeof profile.complaints === 'number') {
+    if (profile.complaints === 0) {
+      score += 5;
+      reasons.push('no_complaints');
+    } else if (profile.complaints > 10) {
+      score -= 20;
+      reasons.push('many_complaints');
+    }
+  }
+
+  if (profile.country === 'FR' || profile.country === 'BE' || profile.country === 'CH' ||
+      profile.country === 'DE' || profile.country === 'US' || profile.country === 'CA') {
+    score += 5;
+    reasons.push('trusted_country');
+  }
+
+  const { risk, recommendedAction } = classify(score);
+  return { score, risk, recommendedAction, reasons };
+}
+
+// --- Proposition d'onboarding partenaire (via QR) ---
+
+export interface PartnerOnboardingProposal {
+  name: string;         // ex: "Airtel"
+  sector: string;       // ex: "mobile_network", "tv_subscription", "casino", "e_bank"
+  activeUsers: number;  // ex: 5000000
+  country: string;      // code pays
+  rewardRate: number;   // ex: 0.02 pour 2% de récompense
+  currency: string;     // ex: "CDF", "EUR", ...
+  usdRate: number;      // taux de change vers USD (1 unité de currency en USD)
+}
+
+export type PartnerOnboardingDecisionType =
+  | 'auto_accept'
+  | 'needs_human_review'
+  | 'auto_reject';
+
+export interface PartnerOnboardingDecision {
+  proposal: PartnerOnboardingProposal;
+  analysis: FraudAnalysisResult;
+  decision: PartnerOnboardingDecisionType;
+  message: string;
+}
+
+// --- Heuristiques d'onboarding partenaire ---
+
+export function evaluatePartnerOnboarding(
+  proposal: PartnerOnboardingProposal
+): PartnerOnboardingDecision {
+  let score = 70;
+  const reasons: string[] = [];
+
+  // 1) Taille de la base utilisateurs
+  if (proposal.activeUsers >= 5_000_000) {
+    score += 15;
+    reasons.push('many_active_users');
+  } else if (proposal.activeUsers >= 1_000_000) {
+    score += 10;
+    reasons.push('large_user_base');
+  } else if (proposal.activeUsers >= 100_000) {
+    score += 5;
+    reasons.push('medium_user_base');
+  } else if (proposal.activeUsers < 10_000) {
+    score -= 10;
+    reasons.push('very_small_user_base');
+  }
+
+  // 2) Secteur d'activité
+  const trustedSectors = ['mobile_network', 'telco', 'tv_subscription', 'supermarket', 'ecommerce', 'e_bank', 'bank'];
+  const sensitiveSectors = ['casino', 'online_betting', 'gambling'];
+
+  if (trustedSectors.includes(proposal.sector)) {
+    score += 10;
+    reasons.push('trusted_sector');
+  } else if (sensitiveSectors.includes(proposal.sector)) {
+    score -= 15;
+    reasons.push('sensitive_sector');
+  } else {
+    reasons.push('neutral_sector');
+  }
+
+  // 3) RewardRate (taux de récompense)
+  if (proposal.rewardRate <= 0) {
+    score -= 30;
+    reasons.push('invalid_reward_rate');
+  } else if (proposal.rewardRate <= 0.05) {
+    score += 5;
+    reasons.push('reasonable_reward_rate');
+  } else if (proposal.rewardRate > 0.15) {
+    score -= 15;
+    reasons.push('very_high_reward_rate');
+  } else {
+    reasons.push('high_reward_rate');
+  }
+
+  // 4) Taux de change USD
+  if (proposal.usdRate <= 0 || proposal.usdRate > 1000) {
+    score -= 20;
+    reasons.push('invalid_fx_rate');
+  } else {
+    reasons.push('fx_rate_ok');
+  }
+
+  // 5) Pays (exemple simple, à affiner)
+  const trustedCountries = ['FR', 'BE', 'CH', 'DE', 'US', 'CA', 'GB'];
+  if (trustedCountries.includes(proposal.country)) {
+    score += 5;
+    reasons.push('trusted_country');
+  }
+
+  const { risk, recommendedAction } = classify(score);
+
+  let decision: PartnerOnboardingDecisionType;
+  let message: string;
+
+  if (risk === 'low' && recommendedAction === 'allow') {
+    decision = 'auto_accept';
+    message = 'Partenaire automatiquement accepté par l’AI coordonnateur.';
+  } else if (risk === 'high') {
+    decision = 'auto_reject';
+    message = 'Profil partenaire jugé trop risqué. Rejet automatique.';
+  } else {
+    decision = 'needs_human_review';
+    message = 'Partenaire mis en attente pour examen humain (admin signataire).';
+  }
+
+  const analysis: FraudAnalysisResult = { score, risk, recommendedAction, reasons };
+  return { proposal, analysis, decision, message };
+}

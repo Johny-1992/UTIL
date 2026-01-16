@@ -1,0 +1,15 @@
+import { Router, Request, Response } from 'express';
+
+const router = Router();
+
+// Endpoint principal sur /api/ai
+router.get('/', (_req: Request, res: Response) => {
+  res.json({ status: 'AI endpoint OK', route: '/api/ai' });
+});
+
+// Endpoint supplémentaire sur /api/ai/status
+router.get('/status', (_req: Request, res: Response) => {
+  res.json({ status: 'AI endpoint OK', route: '/api/ai/status' });
+});
+
+export default router;

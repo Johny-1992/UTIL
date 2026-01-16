@@ -1,50 +1,23 @@
 {
   "name": "omniutil-backend",
-  "version": "1.0.0",
-  "description": "Backend OmniUtil avec intégration smart contract EVM-friendly",
-  "main": "dist/index.js",
-  "scripts": {
-    "start": "node dist/index.js",
-    "dev": "nodemon src/index.ts",
-    "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy:contract": "cd ../contracts && npx hardhat run scripts/deploy_proxied.js --network localhost",
-    "deploy:backend": "pm2 restart omniutil-api || pm2 start \"npm run start\" --name omniutil-api",
-    "deploy:full": "npm run build && npm run deploy:contract && npm run deploy:backend"
+  "private": true,
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.0.7",
+    "@types/qrcode": "^1.5.6",
+    "esbuild": "^0.27.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   },
-  "keywords": [
-    "omniutil",
-    "blockchain",
-    "rewards",
-    "loyalty",
-    "smart-contracts"
-  ],
-  "author": "OmniUtil Team",
-  "license": "MIT",
   "dependencies": {
-    "@openzeppelin/contracts": "^4.9.6",
-    "axios": "^1.7.7",
+    "axios": "^1.13.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "ethers": "^6.16.0",
-    "express": "^4.19.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0",
     "qrcode": "^1.5.4",
     "winston": "^3.19.0"
-  },
-  "devDependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.21",
-    "@types/node": "^20.11.30",
-    "@types/qrcode": "^1.5.6",
-    "@types/winston": "^2.4.4",
-    "nodemon": "^3.1.7",
-    "pm2": "^5.4.2",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
-  },
-  "engines": {
-    "node": ">=20.0.0",
-    "npm": ">=10.0.0"
-  },
-  "type": "module"
+  }
 }
