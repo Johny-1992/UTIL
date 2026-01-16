@@ -1,35 +1,86 @@
-# OMNIUTIL — Universal Utility Infrastructure
+# Omniutil – Universal Utility Reward Infrastructure
 
-OMNIUTIL est une infrastructure universelle de fidélité, de récompense et d’échange de valeur, conçue pour être intégrée par **tout type de plateforme**  
-(télécoms, banque, e-commerce, casino, hôtel, streaming, paris, etc.).
+Omniutil is a global infrastructure designed to reward **real user consumption**
+within partner ecosystems through a **universal QR-based validation system**
+combined with AI-driven approval logic.
 
-## 🚀 Pourquoi OMNIUTIL
-- Aucun plafond de croissance
-- Basé sur l’usage réel (MERIT → UTIL)
-- IA intégrée (anti-fraude, scoring, validation partenaires)
-- QR universel pour intégration instantanée
-- Mode Démo = Mode Réel
+It enables ecosystems to transform user activity into transferable utility value.
 
-## 🧩 Fonctionnalités clés
-- Récompenses dynamiques par partenaire
-- Échange UTIL ↔ services partenaires ↔ stablecoin
-- P2P natif
-- Gouvernance évolutive (AI + multisig hybride)
-- EVM-friendly multi-chain
+---
 
-## 📁 Structure du repo
-- constitution/: Constitution et règles
-- docs/: documentation complète
-- environments/: configuration Demo/Mainnet
-- contracts/: smart contracts EVM
-- backend/: API et IA
-- frontend/: interface, QR et dashboard
-- scripts/: scripts d’init et test
-- .github/: CI, issues, PR templates
+## 🔹 Core Concept
 
-## 🤝 Devenir partenaire
-Scannez le QR universel ou utilisez l’API d’onboarding.  
-L’IA valide automatiquement la conformité.
+Omniutil connects:
+- Real-world consumption
+- Digital verification (QR)
+- AI validation
+- On-chain utility rewards (UTIL)
 
-**OMNIUTIL n’est pas un token.  
-C’est une infrastructure mondiale.**
+Each partner ecosystem integrates a **unique Omniutil QR**.
+Each scan represents a validated consumption event.
+
+---
+
+## 🔹 Utility Token (UTIL)
+
+The UTIL token represents rewarded utility and can be:
+
+- Transferred between users within the same ecosystem
+- Exchanged into USDT
+- Redeemed for partner ecosystem services
+- Audited on-chain
+
+UTIL is not speculative by design — it is **consumption-backed utility**.
+
+---
+
+## 🔹 Infrastructure Capabilities (Current)
+
+✔ QR generation and validation  
+✔ AI approval logic (scripts tested)  
+✔ Backend orchestration (Node / TS / C++)  
+✔ Smart contract deployed (UTIL)  
+✔ User-to-user transfers  
+✔ Service redemption logic  
+✔ Exchange logic (USDT bridge-ready)  
+✔ Partner ecosystem isolation  
+✔ Public demo exposure  
+
+---
+
+## 🔹 Architecture Overview
+
+- Backend: Node.js / TypeScript
+- Scripts: Automation & validation
+- Smart Contracts: Solidity
+- Frontend: Lightweight web interface
+- AI Layer: Validation & fraud filtering
+- Infrastructure: Self-hosted, tunnel / domain-ready
+
+---
+
+## 🔹 Vision
+
+Omniutil aims to become:
+> The universal reward layer for real-world digital consumption.
+
+Any ecosystem.
+Any service.
+One utility standard.
+
+---
+
+## 🔹 Status
+
+This repository reflects a **functional infrastructure**
+with tested scripts and deployed components.
+
+Production scaling, partner onboarding, and public deployment
+are the next stages.
+
+---
+
+## 🔹 Author
+
+Omniutil – Infrastructure Layer  
+GitHub: https://github.com/Johny-1992
