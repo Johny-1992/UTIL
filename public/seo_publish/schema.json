@@ -1,0 +1,8 @@
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Omniutil",
+  "applicationCategory": "BlockchainApplication",
+  "operatingSystem": "Linux",
+  "description": "Omniutil \u2014 Universal Web3 & AI Utility Engine"
+}

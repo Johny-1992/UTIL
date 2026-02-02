@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-01-28T08:41:37.912672+00:00",
+  "seo_published": [
+    "robots.txt",
+    "schema.json",
+    "opengraph.json",
+    "sitemap.xml"
+  ],
+  "crypto_published": [
+    "project.json",
+    "whitepaper.md",
+    "tokenomics.json",
+    "verification.md"
+  ],
+  "mode": "SAFE",
+  "note": "Tous les fichiers publi\u00e9s peuvent \u00eatre supprim\u00e9s pour revenir \u00e0 l'\u00e9tat ant\u00e9rieur."
+}

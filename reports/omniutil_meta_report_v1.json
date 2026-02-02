@@ -1,0 +1,109 @@
+{
+  "timestamp": "2026-01-28T08:28:06.420461+00:00",
+  "files_scanned": 18578,
+  "project_brain": {
+    "core": {
+      "files": 203,
+      "exposed": false,
+      "crypto": false,
+      "critical": false
+    },
+    "backend": {
+      "files": 18271,
+      "exposed": false,
+      "crypto": false,
+      "critical": true
+    },
+    "contracts": {
+      "files": 4,
+      "exposed": false,
+      "crypto": true,
+      "critical": true
+    },
+    "docs": {
+      "files": 6,
+      "exposed": false,
+      "crypto": false,
+      "critical": false
+    },
+    "frontend": {
+      "files": 47,
+      "exposed": true,
+      "crypto": false,
+      "critical": false
+    },
+    "scripts": {
+      "files": 44,
+      "exposed": false,
+      "crypto": false,
+      "critical": false
+    },
+    "public": {
+      "files": 3,
+      "exposed": true,
+      "crypto": false,
+      "critical": false
+    }
+  },
+  "env_map": {
+    "./.env": {
+      "scope": "core",
+      "risk": "medium"
+    },
+    "./.env.local": {
+      "scope": "core",
+      "risk": "medium"
+    },
+    "./backend/.env": {
+      "scope": "backend",
+      "risk": "medium"
+    },
+    "./backend/backup_salveur_1767179175/backup_salveur_1767178559/backup_salveur_1767177653/.env": {
+      "scope": "backend",
+      "risk": "medium"
+    },
+    "./backend/backup_salveur_1767181330/backup_salveur_1767177653/.env": {
+      "scope": "backend",
+      "risk": "medium"
+    },
+    "./backend/backup_salveur_1767181330/backup_salveur_1767178559/.env": {
+      "scope": "backend",
+      "risk": "medium"
+    },
+    "./backend/backup_salveur_1767181330/backup_salveur_1767178559/backup_salveur_1767177653/.env": {
+      "scope": "backend",
+      "risk": "medium"
+    },
+    "./backend/backup_salveur_1767181330/backup_salveur_1767179175/.env": {
+      "scope": "backend",
+      "risk": "medium"
+    },
+    "./backend/backup_salveur_1767181330/backup_salveur_1767179175/backup_salveur_1767177653/.env": {
+      "scope": "backend",
+      "risk": "medium"
+    },
+    "./backend/backup_salveur_1767181330/backup_salveur_1767179175/backup_salveur_1767178559/.env": {
+      "scope": "backend",
+      "risk": "medium"
+    },
+    "./backend/backup_salveur_1767181330/backup_salveur_1767179175/backup_salveur_1767178559/backup_salveur_1767177653/.env": {
+      "scope": "backend",
+      "risk": "medium"
+    },
+    "./contracts/.env": {
+      "scope": "contracts",
+      "risk": "high"
+    },
+    "./frontend/.env": {
+      "scope": "frontend",
+      "risk": "medium"
+    },
+    "./frontend/.env.local": {
+      "scope": "frontend",
+      "risk": "medium"
+    }
+  },
+  "seo_generated": true,
+  "crypto_pack_generated": true,
+  "mode": "SAFE"
+}

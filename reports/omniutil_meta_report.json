@@ -1,0 +1,608 @@
+{
+  "timestamp": "2026-01-28T08:07:41.739527",
+  "root": "/root/omniutil",
+  "files_scanned": 18576,
+  "env_files": [
+    "./.env",
+    "./.env.local",
+    "./backend/.env",
+    "./backend/backup_salveur_1767179175/backup_salveur_1767178559/backup_salveur_1767177653/.env",
+    "./backend/backup_salveur_1767181330/backup_salveur_1767177653/.env",
+    "./backend/backup_salveur_1767181330/backup_salveur_1767178559/.env",
+    "./backend/backup_salveur_1767181330/backup_salveur_1767178559/backup_salveur_1767177653/.env",
+    "./backend/backup_salveur_1767181330/backup_salveur_1767179175/.env",
+    "./backend/backup_salveur_1767181330/backup_salveur_1767179175/backup_salveur_1767177653/.env",
+    "./backend/backup_salveur_1767181330/backup_salveur_1767179175/backup_salveur_1767178559/.env",
+    "./backend/backup_salveur_1767181330/backup_salveur_1767179175/backup_salveur_1767178559/backup_salveur_1767177653/.env",
+    "./contracts/.env",
+    "./frontend/.env",
+    "./frontend/.env.local"
+  ],
+  "domains": {
+    ".gitignore": {
+      "files": 1,
+      "types": [
+        ""
+      ]
+    },
+    "CONTRIBUTING.md": {
+      "files": 1,
+      "types": [
+        ".md"
+      ]
+    },
+    "LICENSE": {
+      "files": 1,
+      "types": [
+        ""
+      ]
+    },
+    "README.md": {
+      "files": 1,
+      "types": [
+        ".md"
+      ]
+    },
+    "USER_RIGHTS.md": {
+      "files": 1,
+      "types": [
+        ".md"
+      ]
+    },
+    "USER_WALLET.json": {
+      "files": 1,
+      "types": [
+        ".json"
+      ]
+    },
+    "bootstrap_full_termux.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "bootstrap_omniutil.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "bootstrap_termux.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "bootstrap_termux_auto.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "omniutil.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "test_rewards.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "test_api.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "omniutil_master_final.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "omniutil_oneclick.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "backend_step5_api_key.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "backend_step5_full_fix.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "backend_step7_nginx_local.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "backend_step7_nginx.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "nginx_omniutil_local.conf": {
+      "files": 1,
+      "types": [
+        ".conf"
+      ]
+    },
+    "backend_step7_nginx_local_8080.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "backend_step11_onchain_demo.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "omniutil_selfcheck.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "backend_step8_api_core.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "backend_step8_api_test.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "backend_step9_ai_core.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "push-clean-new-repo.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "test_rewards_api.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "backend_step10_ai_onboard_partner.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "backend_step11_fix_onchain_demo.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "omniutil_deep_status.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "push-clean-UTIL.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "omniutil_full_launch.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "package-lock.json": {
+      "files": 1,
+      "types": [
+        ".json"
+      ]
+    },
+    ".env": {
+      "files": 1,
+      "types": [
+        ""
+      ]
+    },
+    "deploy_demo.mjs": {
+      "files": 1,
+      "types": [
+        ".mjs"
+      ]
+    },
+    "OmniUtilCore.sol": {
+      "files": 1,
+      "types": [
+        ".sol"
+      ]
+    },
+    "omniutil_ultimate_launch.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "hardhat.config.js": {
+      "files": 1,
+      "types": [
+        ".js"
+      ]
+    },
+    "nano": {
+      "files": 1,
+      "types": [
+        ""
+      ]
+    },
+    "deploy-omniutil-auto.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "setup-omniutil.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "deploy-omniutil.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "deploy-complet-report.txt": {
+      "files": 1,
+      "types": [
+        ".txt"
+      ]
+    },
+    "deploy-omniutil-global.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "omniutil-qr.png": {
+      "files": 1,
+      "types": [
+        ".png"
+      ]
+    },
+    "deploy-complet-final-report.txt": {
+      "files": 1,
+      "types": [
+        ".txt"
+      ]
+    },
+    "deploy-omniutil-full.sh\u202f": {
+      "files": 1,
+      "types": [
+        ".sh\u202f"
+      ]
+    },
+    "deploy-omniutil-full.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "Assigning": {
+      "files": 1,
+      "types": [
+        ""
+      ]
+    },
+    "Success!": {
+      "files": 1,
+      "types": [
+        ""
+      ]
+    },
+    "deploy-final-report.txt": {
+      "files": 1,
+      "types": [
+        ".txt"
+      ]
+    },
+    "deploy-omniutil-professional.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "deploy-omniutil-complet.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "deploy-omniutil-bimode-auto.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "deploy-omniutil-bimode.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    ".env.local": {
+      "files": 1,
+      "types": [
+        ".local"
+      ]
+    },
+    "omniutil-bimode-professional-final.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "deploy-omniutil-bimode-professional-final.sh.save": {
+      "files": 1,
+      "types": [
+        ".save"
+      ]
+    },
+    "deploy-omniutil-bimode-professional-final.sh": {
+      "files": 1,
+      "types": [
+        ".sh"
+      ]
+    },
+    "omniutil.config.json": {
+      "files": 1,
+      "types": [
+        ".json"
+      ]
+    },
+    "deploy-contract.js": {
+      "files": 1,
+      "types": [
+        ".js"
+      ]
+    },
+    "package.json.bak": {
+      "files": 1,
+      "types": [
+        ".bak"
+      ]
+    },
+    "omniutil_meta_engine.py": {
+      "files": 1,
+      "types": [
+        ".py"
+      ]
+    },
+    "backend": {
+      "files": 18260,
+      "types": [
+        "",
+        ".sh\u202f",
+        ".log",
+        ".cjs",
+        ".html",
+        ".ts",
+        ".bak",
+        ".sh",
+        ".conf",
+        ".mjs",
+        ".so",
+        ".png",
+        ".txt",
+        ".js",
+        ".yaml",
+        ".xml",
+        ".",
+        ".md",
+        ".out",
+        ".tsoii",
+        ".gz",
+        ".tsbuildinfo",
+        ".cpp",
+        ".json",
+        ".sol"
+      ]
+    },
+    "constitution": {
+      "files": 3,
+      "types": [
+        ".md"
+      ]
+    },
+    "contracts": {
+      "files": 4,
+      "types": [
+        "",
+        ".sol"
+      ]
+    },
+    "docs": {
+      "files": 6,
+      "types": [
+        ".md"
+      ]
+    },
+    "environments": {
+      "files": 7,
+      "types": [
+        ".json",
+        ".key"
+      ]
+    },
+    "frontend": {
+      "files": 47,
+      "types": [
+        "",
+        ".xml",
+        ".html",
+        ".local",
+        ".tsx",
+        ".ts",
+        ".sh",
+        ".md",
+        ".jsx",
+        ".png",
+        ".txt",
+        ".svg",
+        ".js",
+        ".json",
+        ".log"
+      ]
+    },
+    "scripts": {
+      "files": 44,
+      "types": [
+        "",
+        ".mjs",
+        ".cjs",
+        ".sh",
+        ".js",
+        ".log"
+      ]
+    },
+    "omniutil": {
+      "files": 67,
+      "types": [
+        "",
+        ".html",
+        ".ts",
+        ".sh",
+        ".so",
+        ".md",
+        ".js",
+        ".sol",
+        ".svg",
+        ".cpp",
+        ".json",
+        ".yaml"
+      ]
+    },
+    "logs": {
+      "files": 7,
+      "types": [
+        ".log",
+        ".pid"
+      ]
+    },
+    "qr": {
+      "files": 1,
+      "types": [
+        ".png"
+      ]
+    },
+    "UTIL_ULTIMATE_BUILD": {
+      "files": 2,
+      "types": [
+        ".sol",
+        ".js"
+      ]
+    },
+    "cpp": {
+      "files": 2,
+      "types": [
+        "",
+        ".cpp"
+      ]
+    },
+    "artifacts": {
+      "files": 11,
+      "types": [
+        ".json",
+        ".ts"
+      ]
+    },
+    "legacy_disabled": {
+      "files": 22,
+      "types": [
+        ".json",
+        ".sol",
+        ".ts",
+        ".js"
+      ]
+    },
+    "cache": {
+      "files": 1,
+      "types": [
+        ".json"
+      ]
+    },
+    "versions": {
+      "files": 20,
+      "types": [
+        ".gz",
+        ".bin",
+        ".abi"
+      ]
+    },
+    "public": {
+      "files": 3,
+      "types": [
+        ".xml",
+        ".txt",
+        ".html"
+      ]
+    },
+    ".vercel": {
+      "files": 2,
+      "types": [
+        ".txt",
+        ".json"
+      ]
+    },
+    "orchestrator": {
+      "files": 2,
+      "types": [
+        "",
+        ".cpp"
+      ]
+    },
+    "src": {
+      "files": 1,
+      "types": [
+        ".ts"
+      ]
+    }
+  },
+  "seo": {
+    "robots": "User-agent: *\nAllow: /",
+    "schema": "SoftwareApplication + BlockchainProject",
+    "status": "generated (dry-run)"
+  },
+  "crypto": {
+    "contracts_detected": true,
+    "wallet_present": true,
+    "listing_pack": "ready (dry-run)"
+  },
+  "system_score": 100,
+  "mode": "DRY-RUN"
+}
